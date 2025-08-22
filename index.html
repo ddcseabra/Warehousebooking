@@ -200,17 +200,24 @@
             <button type="submit" class="login-button">Login</button>
 
             <div class="signup-link">
-                <p>Don't have an account? <a href="https://ddcseabra.github.io/Warehousebooking/WHAPP/regitor.html">Sign up</a></p>
+                <p>Don't have an account? <a href="regitor.html">Sign up</a></p>
             </div>
         </form>
     </div>
 
     <script>
-        const togglePassword = document.getElementById('togglePassword');
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // URL of the Google Sheet in CSV format (publish to web)
+            const sheetUrl = 'https://docs.google.com/spreadsheets/d/1utRNwjw9qNwF7emoNO-ONnZMZyNtH8dUygqGcU3rGI0/edit?gid=0#gid=0  const togglePassword = document.getElementById('togglePassword');
         const password = document.getElementById('password');
 
         togglePassword.addEventListener('click', function () {
-            // Toggle the type attribute
+            // Toggle the type attributeผ
             const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
             password.setAttribute('type', type);
             
