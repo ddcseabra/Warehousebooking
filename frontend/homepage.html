@@ -1,12 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <img class="logo_blue" src="images/Lg_sea.png" alt="logo" width="200px">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="css/style.css">
+
+   <style>
+      ul {
+         list-style-type: none;
+         margin: 0;
+         padding: 0;
+         overflow: hidden;
+         background-color: #154E84;
+      }
+
+      li {
+         float: left;
+      }
+
+      li a{
+         display: block;
+         padding: 14px 16px;
+         color: white;
+         text-align: center;
+         text-decoration: none;
+      }
+
+      li a:hover:not(.active) {
+         background-color: #CE9650;
+      }
+   </style>
+
 </head>
-    
+
+
 <body>
 
+   <div class="nav-bar">
+      <ul>
+         <li><a href="#home">Home</a></li>
+         <li><a href="#Inbound">Inbound</a></li>
+         <li><a href="#Outbound">Outbound</a></li>
+         <li><a href="#Stock">Stock</a></li>
+         <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+            <div class="dropdown-content">
+               <a href="#Profile">Profile</a>
+               <a href="#History">View History</a>
+               <a href="#Logout">Logout</a>
+            </div>
+         </li>
+      </ul>
+   </div>
+
+   <!-- <img class="logo_blue" src="images/Lg_sea.png" alt="logo" > -->
+   <img class="edit_pass" src="images/user.png" alt="edit_pass" />
+
+   <div class="email_profile">
+      <p>E-mail:</p>
+
+   </div>
+   <div class="email_profile">
+      <p>Password:</p>
+      
+   </div>
+   <div class="email_profile">
+      <p>Confirm Password:</p>
+      
+   </div>
+
+
+
 </body>
+
 </html>
