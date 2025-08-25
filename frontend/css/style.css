@@ -7,17 +7,20 @@ body {
 /* Media Query สำหรับหน้าจอขนาดเล็ก (600px หรือน้อยกว่า) */
 @media screen and (max-width: 600px) {
     body {
-        background-color: lightcoral; /* เปลี่ยนสีพื้นหลังสำหรับหน้าจอมือถือ */
+        background-color: lightcoral;
+        /* เปลี่ยนสีพื้นหลังสำหรับหน้าจอมือถือ */
     }
 
     h1 {
-        font-size: 24px; /* ปรับขนาดฟอนต์ให้ใหญ่ขึ้น */
+        font-size: 24px;
+        /* ปรับขนาดฟอนต์ให้ใหญ่ขึ้น */
     }
 }
 
 .container {
     display: flex;
-    flex-wrap: wrap; /* ให้ items ขึ้นบรรทัดใหม่ได้ */
+    flex-wrap: wrap;
+    /* ให้ items ขึ้นบรรทัดใหม่ได้ */
 }
 
 .item {
@@ -28,7 +31,8 @@ body {
 /* เมื่อหน้าจอเล็กกว่า 768px ให้เปลี่ยนจาก 3 คอลัมน์ เป็น 1 คอลัมน์ */
 @media screen and (max-width: 768px) {
     .item {
-        width: 100%; /* ทำให้ item กินพื้นที่เต็ม 100% */
+        width: 100%;
+        /* ทำให้ item กินพื้นที่เต็ม 100% */
     }
 }
 
@@ -37,38 +41,113 @@ body {
 
 .logo_blue {
     width: 200px;
-} 
-
-.edit_pass {
-    width: 100px;
-    margin-top: 150px;
-    margin-left: 650px;
 }
 
 /* dropdown */
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 .dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
 }
-.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
 
 .dropdown:hover .dropdown-content {
-  display: block;
+    display: block;
 }
 
 .dropdown {
     margin-right: 100px;
+}
+
+/*picture_change password */
+.edit_pass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    width: 20%;
+    /* บนจอมือถือ ให้กว้างเกือบเต็มจอ */
+    margin: 0 auto;
+    /* จัดกลางเสมอ */
+    padding: 20px;
+    /* เพิ่มระยะห่างภายในจะทำให้สวยขึ้น */
+    box-sizing: border-box;
+    /* ทำให้ padding ไม่ไปเพิ่มความกว้างของกล่อง */
+} 
+
+
+
+/*form Change Password */
+.email_profile {
+    display: flex;
+    justify-content: center;
+    /* จัดเนื้อหาในแนวนอนให้อยู่กึ่งกลาง */
+    align-items: center;
+    /* จัดเนื้อหาในแนวตั้งให้อยู่กึ่งกลาง */
+    height: 20vh;
+    /* กำหนดความสูงของ container ให้เต็มหน้าจอ (viewport height) */
+}
+
+.form_style {
+    width: 90%;
+    /* เริ่มต้นให้กว้าง 90% */
+    max-width: 400px;
+    /* กำหนดความกว้างสูงสุด */
+}
+
+.form_style div {
+    margin-bottom: 15px;
+    /* เพิ่มช่องว่างด้านล่างของแต่ละแถว */
+}
+
+#E-mail {
+    margin-left: 75px;
+}
+
+#password {
+    margin-left: 58px;
+}
+
+.button-change {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    /* บนจอมือถือ ให้กว้างเกือบเต็มจอ */
+    margin: 0 auto;
+    /* จัดกลางเสมอ */
+    padding: 20px;
+    /* เพิ่มระยะห่างภายในจะทำให้สวยขึ้น */
+    
+}
+
+.button-change:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.icon-eye {
+    margin-left: 6px;
+    vertical-align: middle;
 }

@@ -19,7 +19,7 @@
          float: left;
       }
 
-      li a{
+      li a {
          display: block;
          padding: 14px 16px;
          color: white;
@@ -55,22 +55,52 @@
    </div>
 
    <!-- <img class="logo_blue" src="images/Lg_sea.png" alt="logo" > -->
-   <img class="edit_pass" src="images/user.png" alt="edit_pass" />
+   <img class="edit_pass" src="images/user.png" alt="edit_pass" /><br><br>
 
    <div class="email_profile">
-      <p>E-mail:</p>
+  <form class="form_style">
+    <label for="E-mail">* E-mail:</label>
+    <input type="text" id="E-mail" name="E-mail"><br><br>
 
-   </div>
-   <div class="email_profile">
-      <p>Password:</p>
-      
-   </div>
-   <div class="email_profile">
-      <p>Confirm Password:</p>
-      
-   </div>
+    <div class="password-container">
+      <label for="password">* Password:</label>
+      <input type="password" id="password" name="password">
+      <span class="toggle-password icon-eye">
+        <img src="images/eye.png" alt="Show Password" width="24" height="20">
+      </span>
+      <br><br>
 
+      <label for="conpassword">* Confirm Password:</label>
+      <input type="password" id="conpassword" name="conpassword">
+      <span class="toggle-password icon-eye">
+        <img src="images/eye.png" alt="Show Password" width="24" height="20">
+      </span>
+      <br><br>
 
+      <input class="button-change" type="submit" value="Submit">
+    </div>
+  </form>
+</div>
+
+<script>
+  // เลือก toggle ทั้งหมด
+  document.querySelectorAll('.toggle-password').forEach(function(toggle) {
+    toggle.addEventListener('click', function () {
+      const input = this.previousElementSibling; // input ก่อนหน้า <span>
+      const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+      input.setAttribute('type', type);
+
+      const img = this.querySelector("img");
+      if (type === 'text') {
+        img.src = "images/hidden.png"; // ไอคอนตาปิด
+        img.alt = "Hide password";
+      } else {
+        img.src = "images/eye.png";    // ไอคอนตาเปิด
+        img.alt = "Show password";
+      }
+    });
+  });
+</script>
 
 </body>
 
