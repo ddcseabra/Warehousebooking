@@ -229,6 +229,7 @@
         const form = document.getElementById('loginForm');
         const messageDiv = document.getElementById('message');
         const loginButton = document.getElementById('loginButton');
+        const userInput = document.getElementById('username')
         const passwordInput = document.getElementById('password');
         const togglePassword = document.getElementById('togglePassword');
         
@@ -261,7 +262,7 @@
                     loginButton.textContent = 'Success!';
                     // ถ้าสำเร็จ ให้ redirect ไปหน้าอื่นหลังจาก 2 วินาที
                     setTimeout(() => {
-                        // เปลี่ยน 'welcome.html' เป็นหน้าที่คุณต้องการ
+                        // เปลี่ยน 'welcome.html' เป็นหน้าที่คุณต้องการW
                         window.location.href = 'https://ddcseabra.github.io/Warehousebooking/frontend/Home.html'; 
                     }, 2000);
                 } else {
