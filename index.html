@@ -165,9 +165,17 @@
             margin-top: 20px;
             font-weight: 500;
             min-height: 20px;
+            padding: 10px;
+            border-radius: 5px;
         }
-        .success { color: var(--success-color); }
-        .error { color: var(--error-color); }
+        .success { 
+            color: var(--success-color); 
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+        .error { 
+            color: var(--error-color); 
+            background-color: rgba(220, 53, 69, 0.1);
+        }
 
         /* --- Sign-up Link --- */
         .signup-link {
@@ -185,6 +193,22 @@
         .signup-link a:hover {
             text-decoration: underline;
         }
+        
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -198,13 +222,13 @@
         <form id="loginForm">
             <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" required autocomplete="username">
             </div>
 
             <div class="input-group">
                 <label for="password">Password</label>
                 <div class="password-wrapper">
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
                     <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
                 </div>
             </div>
@@ -213,7 +237,9 @@
                 <a href="forget.html">Forgot Password?</a>
             </div>
             
-            <button type="submit" class="login-button" id="loginButton">Login</button>
+            <button type="submit" class="login-button" id="loginButton">
+                <span id="buttonText">Login</span>
+            </button>
 
             <div id="message"></div>
 
@@ -224,11 +250,15 @@
     </div>
 
     <script>
+        // ตรวจสอบว่าเป็น LIFF App หรือไม่
+        const isLIFF = window.self !== window.top;
+        
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyv_rYNpC_1VL5ukNZ-32og1FUiwxOHhBjk52u1Kc0z2G9WDEKSkmX-KPhgjk45cOAf/exec";
 
         const form = document.getElementById('loginForm');
         const messageDiv = document.getElementById('message');
         const loginButton = document.getElementById('loginButton');
+        const buttonText = document.getElementById('buttonText');
         const userInput = document.getElementById('username')
         const passwordInput = document.getElementById('password');
         const togglePassword = document.getElementById('togglePassword');
@@ -242,44 +272,94 @@
         });
 
         // --- ส่วนของการ Login ---
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault(); // ป้องกันไม่ให้หน้าเว็บรีเฟรช
             
-            loginButton.disabled = true; // ปิดปุ่มชั่วคราว
-            loginButton.textContent = 'Checking...';
-            messageDiv.textContent = ''; // ล้างข้อความเก่า
-            messageDiv.className = '';
-
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: new FormData(form)
-            })
-            .then(response => response.json())
-            .then(data => {
+            // ตั้งค่าสถานะกำลังโหลด
+            setLoadingState(true);
+            clearMessage();
+            
+            try {
+                const formData = new FormData(form);
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
                 if (data.status === 'success') {
-                    messageDiv.textContent = data.message;
-                    messageDiv.className = 'success';
-                    loginButton.textContent = 'Success!';
+                    showMessage(data.message, 'success');
+                    setLoadingState(false, 'Success!');
+                    
                     // ถ้าสำเร็จ ให้ redirect ไปหน้าอื่นหลังจาก 2 วินาที
                     setTimeout(() => {
-                        // เปลี่ยน 'welcome.html' เป็นหน้าที่คุณต้องการW
-                        window.location.href = 'https://ddcseabra.github.io/Warehousebooking/frontend/Home.html'; 
+                        // ตรวจสอบว่าเป็น LIFF App หรือไม่
+                        if (isLIFF && window.liff) {
+                            // ปิด LIFF App
+                            window.liff.closeWindow();
+                        } else {
+                            // เปลี่ยนทางไปหน้าเว็บปกติ
+                            window.location.href = 'https://ddcseabra.github.io/Warehousebooking/frontend/Home.html';
+                        }
                     }, 2000);
                 } else {
-                    messageDiv.textContent = data.message;
-                    messageDiv.className = 'error';
-                    loginButton.disabled = false; // เปิดปุ่มให้ลองใหม่
-                    loginButton.textContent = 'Login';
+                    // แสดงข้อความผิดพลาดจากเซิร์ฟเวอร์
+                    showMessage(data.message || 'Username or password is incorrect', 'error');
+                    setLoadingState(false);
+                    
+                    // เคลียร์ฟิลด์รหัสผ่าน
+                    passwordInput.value = '';
+                    passwordInput.focus();
                 }
-            })
-            .catch(error => {
-                console.error('Error!', error);
-                messageDiv.textContent = 'An error occurred. Please try again.';
-                messageDiv.className = 'error';
-                loginButton.disabled = false;
-                loginButton.textContent = 'Login';
-            });
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage('An error occurred. Please check your connection and try again.', 'error');
+                setLoadingState(false);
+            }
         });
+        
+        // ฟังก์ชันตั้งค่าสถานะการโหลด
+        function setLoadingState(isLoading, text = 'Login') {
+            if (isLoading) {
+                loginButton.disabled = true;
+                buttonText.innerHTML = '<span class="spinner"></span> Checking...';
+            } else {
+                loginButton.disabled = false;
+                buttonText.textContent = text;
+            }
+        }
+        
+        // ฟังก์ชันแสดงข้อความ
+        function showMessage(message, type) {
+            messageDiv.textContent = message;
+            messageDiv.className = type;
+        }
+        
+        // ฟังก์ชันล้างข้อความ
+        function clearMessage() {
+            messageDiv.textContent = '';
+            messageDiv.className = '';
+        }
+        
+        // ฟังก์ชันสำหรับ LIFF Initialization
+        function initializeLIFF() {
+            if (isLIFF && window.liff) {
+                // 初始化 LIFF
+                liff.init({})
+                    .then(() => {
+                        console.log('LIFF initialized');
+                        // สามารถเพิ่มฟังก์ชันเฉพาะของ LIFF ได้ที่นี่
+                    })
+                    .catch((err) => {
+                        console.error('LIFF initialization failed', err);
+                    });
+            }
+        }
+        
+        // เรียกใช้เมื่อหน้าเว็บโหลดเสร็จ
+        window.addEventListener('load', initializeLIFF);
     </script>
 </body>
 </html>
