@@ -207,25 +207,47 @@
     </div>
 
     <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
+        // 🚨 แทนที่ด้วย URL ของเว็บแอปที่คุณคัดลอกมาในขั้นตอนที่ 3
+        const API_URL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec"; 
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        const dataContainer = document.getElementById('data-container');
 
-            // URL of the Google Sheet in CSV format (publish to web)
-            const sheetUrl = 'https://docs.google.com/spreadsheets/d/1utRNwjw9qNwF7emoNO-ONnZMZyNtH8dUygqGcU3rGI0/edit?gid=0#gid=0  const togglePassword = document.getElementById('togglePassword');
-        const password = document.getElementById('password');
+        // Use fetch() to get data from your Google Apps Script API
+        fetch(API_URL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse the JSON from the response
+            })
+            .then(users => {
+                // Clear the "Loading..." message
+                dataContainer.innerHTML = ''; 
 
-        togglePassword.addEventListener('click', function () {
-            // Toggle the type attributeผ
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            
-            // Toggle the eye icon
-            this.classList.toggle('fa-eye-slash');
-        });
+                if (users.length === 0) {
+                    dataContainer.innerHTML = '<p>No users found.</p>';
+                    return;
+                }
+
+                // Create an unordered list to display the users
+                const userList = document.createElement('ul');
+                userList.id = 'user-list';
+                
+                users.forEach(user => {
+                    const listItem = document.createElement('li');
+                    // Safely display the username to prevent HTML injection issues
+                    listItem.textContent = `Username: ${user.username} (Registered on: ${new Date(user.timestamp).toLocaleDateString()})`;
+                    userList.appendChild(listItem);
+                });
+
+                dataContainer.appendChild(userList);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                dataContainer.innerHTML = '<p style="color: red;">Failed to load user data. Please check the console for errors.</p>';
+            });
     </script>
+
 
 </body>
 </html>
