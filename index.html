@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ทำให้หน้าเว็บแสดงผลได้พอดีกับหน้าจออุปกรณ์ เอามาจาก liff apps  -->
     <title>Login - Warehouse System</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +18,8 @@
             --light-gray: #f0f2f5;
             --dark-gray: #555;
             --border-color: #ddd;
+            --success-color: #28a745;
+            --error-color: #dc3545;
         }
 
         * {
@@ -47,12 +48,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* ฟิล์มสีดำโปร่งแสง */
+            background-color: rgba(0, 0, 0, 0.6);
         }
 
-        /* --- Login Form Container  กำหนดขนาน --- */
+        /* --- Login Form Container --- */
         .login-container {
-            position: relative; /* ให้อยู่เหนือ Overlay */
+            position: relative;
             background-color: #ffffff;
             padding: 40px;
             border-radius: 12px;
@@ -147,12 +148,26 @@
             font-weight: 700;
             font-family: 'Sarabun', sans-serif;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, opacity 0.3s;
         }
         
         .login-button:hover {
             background-color: #3b438a;
         }
+        
+        .login-button:disabled {
+            background-color: #9fa8da;
+            cursor: not-allowed;
+        }
+
+        /* --- Message Area --- */
+        #message {
+            margin-top: 20px;
+            font-weight: 500;
+            min-height: 20px;
+        }
+        .success { color: var(--success-color); }
+        .error { color: var(--error-color); }
 
         /* --- Sign-up Link --- */
         .signup-link {
@@ -180,10 +195,10 @@
             <p>Sign in to your account</p>
         </div>
 
-        <form>
+        <form id="loginForm">
             <div class="input-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
             </div>
 
             <div class="input-group">
@@ -197,8 +212,10 @@
             <div class="options">
                 <a href="forget.html">Forgot Password?</a>
             </div>
+            
+            <button type="submit" class="login-button" id="loginButton">Login</button>
 
-            <button type="submit" class="login-button">Login</button>
+            <div id="message"></div>
 
             <div class="signup-link">
                 <p>Don't have an account? <a href="regitor.html">Sign up</a></p>
@@ -207,47 +224,61 @@
     </div>
 
     <script>
-        // 🚨 แทนที่ด้วย URL ของเว็บแอปที่คุณคัดลอกมาในขั้นตอนที่ 3
-        const API_URL = "https://script.google.com/macros/s/AKfycbyv_rYNpC_1VL5ukNZ-32og1FUiwxOHhBjk52u1Kc0z2G9WDEKSkmX-KPhgjk45cOAf/exec"; 
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyv_rYNpC_1VL5ukNZ-32og1FUiwxOHhBjk52u1Kc0z2G9WDEKSkmX-KPhgjk45cOAf/exec";
 
-        const dataContainer = document.getElementById('data-container');
+        const form = document.getElementById('loginForm');
+        const messageDiv = document.getElementById('message');
+        const loginButton = document.getElementById('loginButton');
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        
+        // --- ส่วนของการแสดง/ซ่อนรหัสผ่าน ---
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            // เปลี่ยนไอคอนตา
+            this.classList.toggle('fa-eye-slash');
+        });
 
-        // Use fetch() to get data from your Google Apps Script API
-        fetch(API_URL)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json(); // Parse the JSON from the response
+        // --- ส่วนของการ Login ---
+        form.addEventListener('submit', e => {
+            e.preventDefault(); // ป้องกันไม่ให้หน้าเว็บรีเฟรช
+            
+            loginButton.disabled = true; // ปิดปุ่มชั่วคราว
+            loginButton.textContent = 'Checking...';
+            messageDiv.textContent = ''; // ล้างข้อความเก่า
+            messageDiv.className = '';
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: new FormData(form)
             })
-            .then(users => {
-                // Clear the "Loading..." message
-                dataContainer.innerHTML = ''; 
-
-                if (users.length === 0) {
-                    dataContainer.innerHTML = '<p>No users found.</p>';
-                    return;
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    messageDiv.textContent = data.message;
+                    messageDiv.className = 'success';
+                    loginButton.textContent = 'Success!';
+                    // ถ้าสำเร็จ ให้ redirect ไปหน้าอื่นหลังจาก 2 วินาที
+                    setTimeout(() => {
+                        // เปลี่ยน 'welcome.html' เป็นหน้าที่คุณต้องการ
+                        window.location.href = 'welcome.html'; 
+                    }, 2000);
+                } else {
+                    messageDiv.textContent = data.message;
+                    messageDiv.className = 'error';
+                    loginButton.disabled = false; // เปิดปุ่มให้ลองใหม่
+                    loginButton.textContent = 'Login';
                 }
-
-                // Create an unordered list to display the users
-                const userList = document.createElement('ul');
-                userList.id = 'user-list';
-                
-                users.forEach(user => {
-                    const listItem = document.createElement('li');
-                    // Safely display the username to prevent HTML injection issues
-                    listItem.textContent = `Username: ${user.username} (Registered on: ${new Date(user.timestamp).toLocaleDateString()})`;
-                    userList.appendChild(listItem);
-                });
-
-                dataContainer.appendChild(userList);
             })
             .catch(error => {
-                console.error('Error fetching data:', error);
-                dataContainer.innerHTML = '<p style="color: red;">Failed to load user data. Please check the console for errors.</p>';
+                console.error('Error!', error);
+                messageDiv.textContent = 'An error occurred. Please try again.';
+                messageDiv.className = 'error';
+                loginButton.disabled = false;
+                loginButton.textContent = 'Login';
             });
+        });
     </script>
-
-
 </body>
 </html>
