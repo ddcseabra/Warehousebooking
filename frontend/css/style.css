@@ -23,21 +23,11 @@ li a:hover:not(.active) {
     background-color: #CE9650;
 }
 
-
-/* โค้ด CSS สำหรับหน้าจอทั่วไป (มากกว่า 600px) */
-
-/* Media Query สำหรับหน้าจอขนาดเล็ก (600px หรือน้อยกว่า) */
-@media screen and (max-width: 600px) {
-    body {
-        background-color: lightcoral;
-        /* เปลี่ยนสีพื้นหลังสำหรับหน้าจอมือถือ */
-    }
-
-    h1 {
-        font-size: 24px;
-        /* ปรับขนาดฟอนต์ให้ใหญ่ขึ้น */
-    }
+.black_login {
+    margin-right: 900%;
 }
+
+
 
 .container {
     display: flex;
@@ -49,17 +39,6 @@ li a:hover:not(.active) {
     width: 30%;
     margin: 10px;
 }
-
-/* เมื่อหน้าจอเล็กกว่า 768px ให้เปลี่ยนจาก 3 คอลัมน์ เป็น 1 คอลัมน์ */
-@media screen and (max-width: 768px) {
-    .item {
-        width: 100%;
-        /* ทำให้ item กินพื้นที่เต็ม 100% */
-    }
-}
-
-
-
 
 
 .logo_blue {
@@ -109,21 +88,6 @@ body {
 /* ฟิล์มสีดำโปร่งแสง */
 /* ชั้น overlay */
 
-/* body {
-    background-color: white;
-    font-size: 16px;
-    font-family: 'Sarabun', sans-serif;
-    background-image: url('https://images.unsplash.com/photo-1586528116311-06924151d18a?q=80&w=2070&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: var(--dark-gray);
-} */
-
-
 body::before {
     content: '';
     position: fixed;
@@ -148,14 +112,12 @@ body::before {
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 420px;
+    width: 80%;
+    max-width: 400px;
     text-align: center;
     z-index: 2;
     /* ชั้นสูงกว่า overlay */
 }
-
-
 
 .edit_pass {
     display: flex;
@@ -172,75 +134,94 @@ body::before {
     /* ทำให้ padding ไม่ไปเพิ่มความกว้างของกล่อง */
 
 }
+ 
+/* จัดการแต่ละแถวในฟอร์ม */
 
-
-
-/*form Change Password */
-
-/*.email_profile {
-    display: flex;
-    justify-content: center;
-    /* จัดเนื้อหาในแนวนอนให้อยู่กึ่งกลาง */
-/*align-items: center;
-    /* จัดเนื้อหาในแนวตั้งให้อยู่กึ่งกลาง */
-/* height: 20vh;
-    /* กำหนดความสูงของ container ให้เต็มหน้าจอ (viewport height) */
-/* position: relative;
-    /* ให้อยู่เหนือ Overlay */
-
-
-.password-container label {
-    text-align: right;
-}
-/* ยกเลิก <br> เพราะ Grid จัดการให้แล้ว */
-
-.form_style {
-    width: 90%;
-    /* เริ่มต้นให้กว้าง 90% */
-    max-width: 400px;
-    /* กำหนดความกว้างสูงสุด */
+/* กำหนดสไตล์ให้แต่ละแถวของฟอร์ม */
+.form-row {
+  display: flex; /* เปิดใช้งาน Flexbox เพื่อให้องค์ประกอบเรียงกันในแนวนอน */
+  align-items: center; /* จัดให้องค์ประกอบอยู่ตรงกลางแนวตั้ง */
+  margin-bottom: 15px; /* เพิ่มระยะห่างระหว่างแถว */
 }
 
-.form_style div {
-    margin-bottom: 15px;
-    /* เพิ่มช่องว่างด้านล่างของแต่ละแถว */
+/* กำหนดสไตล์ให้ label ทุกตัว */
+.form-row label {
+  width: 160px; /* กำหนดความกว้างคงที่เพื่อให้ทุก label มีขนาดเท่ากัน */
+  text-align: right; /* จัดข้อความชิดขวา */
+  margin-right: 10px; /* เพิ่มระยะห่างจากช่องกรอกข้อมูล */
 }
 
-#E-mail {
-    margin-left: 45px;
+/* จัดการส่วนของ input ให้ยืดเต็มพื้นที่ที่เหลือ */
+.form-row input[type="text"],
+.form-row .input-wrapper {
+  flex-grow: 1; /* ให้ยืดเต็มพื้นที่ที่เหลือในแถว */
 }
 
-#password {
-    margin-left: 58px;
+.form-row .input-wrapper {
+  display: flex; /* ทำให้ input และ icon อยู่ในแถวเดียวกัน */
+  align-items: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
 }
-
-.button-change {
-    background-color: #04AA6D;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    font-size: 14px;
-    margin: 4px 2px;
+/* icon eye */
+.toggle-password {
+    margin-left: 10px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 20%;
-    /* บนจอมือถือ ให้กว้างเกือบเต็มจอ */
-    margin: 0 auto;
-    /* จัดกลางเสมอ */
-    padding: 15px;
-    /* เพิ่มระยะห่างภายในจะทำให้สวยขึ้น */
-    border-radius: 12px;
-
 }
 
-.button-change:hover {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+.form-row .input-wrapper input {
+  width: 100%; /* ทำให้ input ขยายเต็มพื้นที่ของ wrapper */
 }
 
-.icon-eye {
-    margin-left: 6px;
-    vertical-align: middle;
+/* จัดตำแหน่งของปุ่ม Submit */
+.form-row .button-change {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 14px;
+  width: auto;       /* ปรับให้ปุ่มกว้างตามเนื้อหา */
+  margin: 0;         /* เอา margin-left เดิมออก */
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* สำหรับปุ่ม Submit */
+.form-row:last-of-type {
+    justify-content: center; /* จัดเนื้อหาในแนวนอนให้อยู่ตรงกลาง */
+    align-items: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+}
+/* CSS สำหรับตัว spacer: */
+.form-row .spacer {
+  width: 160px; /* ให้ spacer มีความกว้างเท่ากับ label */
+  margin-right: 10px; /* ให้ spacer มีระยะห่างเท่ากับ label */
+}
+
+
+/* โค้ด CSS สำหรับมือถือ */
+@media (max-width: 600px) {
+    /* ใช้กฎ CSS ที่จัดวาง layout เป็นแนวดิ่ง (column) */
+    .form-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .form-row label,
+    .form-row input[type="text"],
+    .form-row .input-wrapper,
+    .form-row .button-change {
+        width: 100%; /* ทำให้ทุกอย่างยืดเต็มความกว้างของหน้าจอ */
+        box-sizing: border-box; /* สำคัญมาก! ช่วยให้ padding และ border ไม่ทำให้ขนาดล้น */
+    }
+    
+    .form-row label {
+      margin-right: 0;
+      text-align: left;
+    }
+
+    .form-row .button-change {
+        margin: 10px 0; /* เพิ่มระยะห่างบน-ล่าง */
+    }
+
+    .change_pw {
+        padding: 10px; /* เพิ่ม padding รอบๆ ฟอร์มเพื่อไม่ให้ชิดขอบจอเกินไป */
+    }
 }

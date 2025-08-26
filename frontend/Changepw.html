@@ -4,45 +4,52 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-   <link rel="stylesheet" href="css/style.css">
 
+   <link rel="stylesheet" href="css/style.css">
+   
 </head>
 
 
 <body>
-
    <div class="change_pw">
-      <!-- <img class="logo_blue" src="images/Lg_sea.png" alt="logo" > -->
-      <!--<img class="edit_pass" src="images/user.png" alt="edit_pass" /><br><br>-->
-
-      <!--<div class="email_profile">-->
       <form class="form_style">
-         <img class="edit_pass" src="images/user.png" alt="edit_pass" /><br><br>
+         <div class="black_login">
+         <a href="../index.html">Back</a></div>
+         <img class="edit_pass" src="images/user.png" alt="edit_pass" /><br /><br />
 
          <div class="password-container">
-            <label for="E-mail">* E-mail:</label>
-            <input type="text" id="E-mail" name="E-mail"><br><br>
 
-            <label for="password">* Password:</label>
-            <input type="password" id="password" name="password">
-            <span class="toggle-password icon-eye">
-               <img src="images/eye.png" alt="Show Password" width="24" height="20">
-            </span>
-            <br><br>
+            <div class="form-row">
+               <label for="E-mail">* E-mail:</label>
+               <input type="text" id="E-mail" name="E-mail" />
+            </div>
 
-            <label for="conpassword">* Confirm Password:</label>
-            <input type="password" id="conpassword" name="conpassword">
-            <span class="toggle-password icon-eye">
-               <img src="images/eye.png" alt="Show Password" width="24" height="20">
-            </span>
-            <br><br>
+            <div class="form-row">
+               <label for="password">* Password:</label>
+               <div class="input-wrapper">
+                  <input type="password" id="password" name="password" />
+                  <span class="toggle-password icon-eye">
+                     <img src="images/eye.png" alt="Show Password" width="24" height="20" />
+                  </span>
+               </div>
+            </div>
 
-            <input class="button-change" type="submit" value="Submit">
+            <div class="form-row">
+               <label for="conpassword">* Confirm Password:</label>
+               <div class="input-wrapper">
+                  <input type="password" id="conpassword" name="conpassword" />
+                  <span class="toggle-password icon-eye">
+                     <img src="images/eye.png" alt="Show Password" width="24" height="20" />
+                  </span>
+               </div>
+            </div>
+
+            <div class="form-row">
+                  <input class="button-change" type="submit" value="Submit" />
+            </div>
          </div>
       </form>
    </div>
-
 
    <script>
       // เลือก toggle ทั้งหมด
