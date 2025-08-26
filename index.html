@@ -265,9 +265,9 @@
                     }
                     return response.json();
                 })
-                .then(users => {
+                .then(user => {
                     // ตรวจสอบว่ามีผู้ใช้ที่ตรงกับข้อมูลที่กรอกหรือไม่
-                    const foundUser = users.find(user => user[0] === usernameInput && user[1] === passwordInput);
+                    const foundUser = user.find(user => user[0] === usernameInput && user[1] === passwordInput);
 
                     if (foundUser) {
                         messageElement.textContent = 'Login Successful!';
