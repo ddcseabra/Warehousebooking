@@ -1,8 +1,30 @@
-/* โค้ด CSS สำหรับหน้าจอทั่วไป (มากกว่า 600px) */
-body {
-    background-color: white;
-    font-size: 16px;
+/* nav-bar */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #154E84;
 }
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    padding: 14px 16px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #CE9650;
+}
+
+
+/* โค้ด CSS สำหรับหน้าจอทั่วไป (มากกว่า 600px) */
 
 /* Media Query สำหรับหน้าจอขนาดเล็ก (600px หรือน้อยกว่า) */
 @media screen and (max-width: 600px) {
@@ -35,6 +57,7 @@ body {
         /* ทำให้ item กินพื้นที่เต็ม 100% */
     }
 }
+
 
 
 
@@ -74,13 +97,72 @@ body {
     margin-right: 100px;
 }
 
+/* หน้าจอ popup*/
 /*picture_change password */
+body {
+    position: relative;
+    /* ทำให้ ::before อ้างอิงตำแหน่งจาก body */
+    margin: 0;
+    padding: 0;
+}
+
+/* ฟิล์มสีดำโปร่งแสง */
+/* ชั้น overlay */
+
+/* body {
+    background-color: white;
+    font-size: 16px;
+    font-family: 'Sarabun', sans-serif;
+    background-image: url('https://images.unsplash.com/photo-1586528116311-06924151d18a?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--dark-gray);
+} */
+
+
+body::before {
+    content: '';
+    position: fixed;
+    /* ให้คลุมเต็มหน้าจอ แม้จะ scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    /* ชั้นล่างกว่า popup */
+}
+
+/* กล่องป๊อปอัพ */
+.change_pw {
+    position: fixed;
+    /* ให้อยู่กลางหน้าจอ */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    z-index: 2;
+    /* ชั้นสูงกว่า overlay */
+}
+
+
+
 .edit_pass {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
-    width: 20%;
+    height: 30vh;
+    width: 50%;
     /* บนจอมือถือ ให้กว้างเกือบเต็มจอ */
     margin: 0 auto;
     /* จัดกลางเสมอ */
@@ -88,20 +170,29 @@ body {
     /* เพิ่มระยะห่างภายในจะทำให้สวยขึ้น */
     box-sizing: border-box;
     /* ทำให้ padding ไม่ไปเพิ่มความกว้างของกล่อง */
-} 
+
+}
 
 
 
 /*form Change Password */
-.email_profile {
+
+/*.email_profile {
     display: flex;
     justify-content: center;
     /* จัดเนื้อหาในแนวนอนให้อยู่กึ่งกลาง */
-    align-items: center;
+/*align-items: center;
     /* จัดเนื้อหาในแนวตั้งให้อยู่กึ่งกลาง */
-    height: 20vh;
+/* height: 20vh;
     /* กำหนดความสูงของ container ให้เต็มหน้าจอ (viewport height) */
+/* position: relative;
+    /* ให้อยู่เหนือ Overlay */
+
+
+.password-container label {
+    text-align: right;
 }
+/* ยกเลิก <br> เพราะ Grid จัดการให้แล้ว */
 
 .form_style {
     width: 90%;
@@ -116,7 +207,7 @@ body {
 }
 
 #E-mail {
-    margin-left: 75px;
+    margin-left: 45px;
 }
 
 #password {
@@ -139,14 +230,16 @@ body {
     /* บนจอมือถือ ให้กว้างเกือบเต็มจอ */
     margin: 0 auto;
     /* จัดกลางเสมอ */
-    padding: 20px;
+    padding: 15px;
     /* เพิ่มระยะห่างภายในจะทำให้สวยขึ้น */
-    
+    border-radius: 12px;
+
 }
 
 .button-change:hover {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
+
 .icon-eye {
     margin-left: 6px;
     vertical-align: middle;
