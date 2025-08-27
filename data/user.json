@@ -2,14 +2,13 @@
   {
     "username": "user1",
     "password": "pass123",
-    "customername": "Customer A",
-    "customerid": "CUST001"
+    "customername": "NANA FRUITS CO., LTD.",
+    "customerid": "C20591"
   },
   {
     "username": "user2",
     "password": "pass456",
-    "customername": "Customer B",
-    "customerid": "CUST002"
+    "customername": "LITTLE MUNCHY CO., LTD.",
+    "customerid": "C19522"
   }
 ]
-
