@@ -297,15 +297,16 @@
       }
 
       const res = await fetch("data/stocks.json");
-      const stock = await res.json();
-      const customerProducts = stock.filter(p => p.customerid === user.customerid);
+      const stockData = await res.json(); // stockData.stocks เป็น array
+      const customerProducts = stockData.stocks.filter(p => p.customerid === user.customerid);
 
-      customerProducts.forEach(p => {
-        const option = document.createElement("option");
-        option.value = p.productid;
-        option.textContent = `${p.productname} (Stock: ${p.quantity})`;
-        productSelect.appendChild(option);
-      });
+customerProducts.forEach(p => {
+  const option = document.createElement("option");
+  option.value = p.productCode;  // ใช้ productCode แทน productid
+  option.textContent = `${p.productName} (Stock: ${p.quantity})`; // ใช้ productName แทน productname
+  productSelect.appendChild(option);
+});
+
     }
 
     // Add product to bookingItems
@@ -412,6 +413,7 @@
 </body>
 
 </html>
+
 
 
 
