@@ -270,6 +270,7 @@
                     const foundUser = user.find(u => u.username === usernameInput && u.password === passwordInput);
 
                     if (foundUser) {
+                        localStorage.setItem('user', JSON.stringify(foundUser));
                         messageElement.textContent = 'Login Successful!';
                         messageElement.style.color = 'green';
                         // หากล็อกอินสำเร็จ สามารถ redirect ไปยังหน้าอื่นได้ที่นี่
