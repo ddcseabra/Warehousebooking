@@ -1,76 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="th">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password - Warehouse System</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-   <link rel="stylesheet" href="css/style.css">
-   
+    <style>
+        /* --- Base Styles (เหมือนกับหน้า Login) --- */
+        :root {
+            --primary-color: #4A55A2; /* สีน้ำเงินเข้ม */
+            --light-gray: #f0f2f5;
+            --dark-gray: #555;
+            --border-color: #ddd;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1586528116311-06924151d18a?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: var(--dark-gray);
+        }
+        
+        /* --- Overlay --- */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        /* --- Form Container --- */
+        .form-container {
+            position: relative;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        /* --- Header --- */
+        .form-header h1 {
+            font-size: 2.2rem; /* ปรับขนาดเล็กน้อย */
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        /* --- Input Fields --- */
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .input-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Sarabun', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 85, 162, 0.2);
+        }
+        
+        /* --- Action Button --- */
+        .action-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Sarabun', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s, opacity 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .action-button:hover {
+            background-color: #3b438a;
+        }
+        
+        .action-button:disabled {
+            background-color: #9fa8da;
+            cursor: not-allowed;
+        }
+
+        /* --- Message Area --- */
+        #message {
+            margin-top: 20px;
+            font-weight: 500;
+            min-height: 20px; /* ให้มีพื้นที่เสมอ */
+            padding: 10px;
+            border-radius: 5px;
+            display: none; /* ซ่อนไว้ก่อน */
+        }
+        .success { 
+            display: block; /* แสดงเมื่อมี class */
+            color: var(--success-color); 
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+        .error { 
+            display: block; /* แสดงเมื่อมี class */
+            color: var(--error-color); 
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        /* --- Bottom Link --- */
+        .bottom-link {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .bottom-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .bottom-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            display: none; /* ซ่อนปกติ */
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-
-
 <body>
-   <div class="change_pw">
-      <form class="form_style">
-         <div class="black_login">
-         <a href="../index.html">Back</a></div>
-         <img class="edit_pass" src="images/user.png" alt="edit_pass" /><br /><br />
 
-         <div class="password-container">
+    <div class="form-container">
+        <div class="form-header">
+            <h1>ลืมรหัสผ่าน?</h1>
+            <p>กรอกอีเมลของคุณเพื่อรับลิงก์สำหรับรีเซ็ตรหัสผ่าน</p>
+        </div>
 
-            <div class="form-row">
-               <label for="E-mail">* E-mail:</label>
-               <input type="text" id="E-mail" name="E-mail" />
+        <form id="resetForm">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
             </div>
+            
+            <button type="submit" class="action-button" id="resetButton">
+                <div class="spinner" id="spinner"></div>
+                <span id="buttonText">ส่งลิงก์รีเซ็ตรหัสผ่าน</span>
+            </button>
 
-            <div class="form-row">
-               <label for="password">* Password:</label>
-               <div class="input-wrapper">
-                  <input type="password" id="password" name="password" />
-                  <span class="toggle-password icon-eye">
-                     <img src="images/eye.png" alt="Show Password" width="24" height="20" />
-                  </span>
-               </div>
+            <div id="message"></div>
+
+            <div class="bottom-link">
+                <p>จำรหัสผ่านได้แล้ว? <a href="login.html">กลับไปหน้าล็อกอิน</a></p>
             </div>
+        </form>
+    </div>
 
-            <div class="form-row">
-               <label for="conpassword">* Confirm Password:</label>
-               <div class="input-wrapper">
-                  <input type="password" id="conpassword" name="conpassword" />
-                  <span class="toggle-password icon-eye">
-                     <img src="images/eye.png" alt="Show Password" width="24" height="20" />
-                  </span>
-               </div>
-            </div>
+    <script>
+        const resetForm = document.getElementById('resetForm');
+        const resetButton = document.getElementById('resetButton');
+        const buttonText = document.getElementById('buttonText');
+        const spinner = document.getElementById('spinner');
+        const messageElement = document.getElementById('message');
 
-            <div class="form-row">
-                  <input class="button-change" type="submit" value="Submit" />
-            </div>
-         </div>
-      </form>
-   </div>
+        resetForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // ป้องกันการรีเฟรชหน้า
 
-   <script>
-      // เลือก toggle ทั้งหมด
-      document.querySelectorAll('.toggle-password').forEach(function (toggle) {
-         toggle.addEventListener('click', function () {
-            const input = this.previousElementSibling; // input ก่อนหน้า <span>
-            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-            input.setAttribute('type', type);
+            const email = document.getElementById('email').value;
+            
+            // --- แสดงสถานะกำลังโหลด ---
+            resetButton.disabled = true;
+            spinner.style.display = 'inline-block';
+            buttonText.textContent = 'กำลังส่ง...';
+            messageElement.className = '';
+            messageElement.textContent = '';
 
-            const img = this.querySelector("img");
-            if (type === 'text') {
-               img.src = "images/hidden.png"; // ไอคอนตาปิด
-               img.alt = "Hide password";
-            } else {
-               img.src = "images/eye.png";    // ไอคอนตาเปิด
-               img.alt = "Show password";
-            }
-         });
-      });
-   </script>
 
+            // --- จำลองการส่งข้อมูล (ปกติส่วนนี้จะส่งไปที่ Server) ---
+            setTimeout(() => {
+                // *** ในการใช้งานจริง: คุณต้องส่ง email ไปยัง server
+                // เพื่อตรวจสอบและส่งอีเมลรีเซ็ตรหัสผ่าน ***
+
+                // จำลองว่าส่งสำเร็จเสมอ
+                // เพื่อความปลอดภัย เราจะไม่บอกผู้ใช้ว่าอีเมลนี้มีในระบบหรือไม่
+                messageElement.textContent = 'หากอีเมลของคุณมีอยู่ในระบบ เราได้ส่งลิงก์สำหรับรีเซ็ตรหัสผ่านไปให้แล้ว';
+                messageElement.className = 'success';
+                
+                // --- คืนค่าปุ่มกลับสู่สถานะปกติ ---
+                resetButton.disabled = false;
+                spinner.style.display = 'none';
+                buttonText.textContent = 'ส่งลิงก์รีเซ็ตรหัสผ่าน';
+
+            }, 2000); // หน่วงเวลา 2 วินาทีเพื่อให้ดูเหมือนกำลังประมวลผล
+        });
+    </script>
 </body>
-
 </html>
