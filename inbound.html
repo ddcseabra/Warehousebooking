@@ -289,7 +289,7 @@
 
     // Load product from stock.json
     async function loadProducts() {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const user = JSON.parse(localStorage.getItem("user")); // ✅ ดึง user จาก localStorage
       if (!user) {
         alert("Please login first!");
         window.location.href = "index.html";
@@ -367,7 +367,7 @@
         return;
       }
 
-      const user = JSON.parse(localStorage.getItem("user"));
+      const user = JSON.parse(localStorage.getItem("user")); // ✅ ดึง user อีกครั้งก่อน save
       const service = serviceSelect.selectedOptions[0].text;
       const subService = subServiceSelect.selectedOptions[0].text;
       const date = bookingDate.value;
@@ -406,9 +406,11 @@
     });
 
     loadProducts();
-  </script>
+</script>
+
 
 </body>
 
 </html>
+
 
