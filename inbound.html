@@ -296,7 +296,7 @@
         return;
       }
 
-      const res = await fetch("./json/stock.json");
+      const res = await fetch("./data/stock.json");
       const stock = await res.json();
       const customerProducts = stock.filter(p => p.customerid === user.customerid);
 
@@ -411,3 +411,4 @@
 </body>
 
 </html>
+
