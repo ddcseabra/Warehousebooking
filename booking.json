@@ -1,0 +1,98 @@
+[
+  {
+    "bookingid": "B001",
+    "customername": "Customer A",
+    "type": "inbound",
+    "service": "Delivery",
+    "subservice": "Express",
+    "bookingdate": "2025-08-20",
+    "bookingtime": "09:00",
+    "remark": "Urgent",
+    "productname": "Product 1",
+    "quantity": 10
+  },
+  {
+    "bookingid": "B002",
+    "customername": "Customer A",
+    "type": "outbound",
+    "service": "Pickup",
+    "subservice": "Standard",
+    "bookingdate": "2025-08-21",
+    "bookingtime": "13:00",
+    "remark": "Normal",
+    "productname": "Product 2",
+    "quantity": 5
+  },
+  {
+    "bookingid": "B003",
+    "customername": "Customer A",
+    "type": "inbound",
+    "service": "Delivery",
+    "subservice": "Standard",
+    "bookingdate": "2025-08-22",
+    "bookingtime": "11:00",
+    "remark": "",
+    "productname": "Product 3",
+    "quantity": 8
+  },
+  {
+    "bookingid": "B004",
+    "customername": "Customer A",
+    "type": "outbound",
+    "service": "Pickup",
+    "subservice": "Express",
+    "bookingdate": "2025-08-23",
+    "bookingtime": "15:00",
+    "remark": "High priority",
+    "productname": "Product 1",
+    "quantity": 7
+  },
+  {
+    "bookingid": "B005",
+    "customername": "Customer B",
+    "type": "inbound",
+    "service": "Delivery",
+    "subservice": "Express",
+    "bookingdate": "2025-08-20",
+    "bookingtime": "10:00",
+    "remark": "Urgent",
+    "productname": "Product 4",
+    "quantity": 15
+  },
+  {
+    "bookingid": "B006",
+    "customername": "Customer B",
+    "type": "outbound",
+    "service": "Pickup",
+    "subservice": "Standard",
+    "bookingdate": "2025-08-21",
+    "bookingtime": "14:00",
+    "remark": "",
+    "productname": "Product 5",
+    "quantity": 10
+  },
+  {
+    "bookingid": "B007",
+    "customername": "Customer B",
+    "type": "inbound",
+    "service": "Delivery",
+    "subservice": "Standard",
+    "bookingdate": "2025-08-22",
+    "bookingtime": "12:00",
+    "remark": "",
+    "productname": "Product 6",
+    "quantity": 5
+  },
+  {
+    "bookingid": "B008",
+    "customername": "Customer B",
+    "type": "outbound",
+    "service": "Pickup",
+    "subservice": "Express",
+    "bookingdate": "2025-08-23",
+    "bookingtime": "16:00",
+    "remark": "High priority",
+    "productname": "Product 4",
+    "quantity": 12
+  }
+]
