@@ -1,0 +1,47 @@
+{
+  "stocks": [
+    {
+      "customerid": "C20591",
+      "productCode": "nana-01",
+      "productName": "Dried Strawberry 50g.",
+      "companyName": "NANA FRUITS CO., LTD.",
+      "quantity": 5
+      
+    },
+    {
+      "customerid": "C20591",
+      "productCode": "nana-02",
+      "productName": "Dehydrated Nam Dok Mai Mango 25g.",
+      "companyName": "NANA FRUITS CO., LTD.",
+      "quantity": 200
+    },
+    {
+      "customerid": "C20591",
+      "productCode": "nana-03",
+      "productName": "PLASTIC BAG",
+      "companyName": "NANA FRUITS CO., LTD.",
+      "quantity": 11
+    },
+    {
+      "customerid": "C19522",
+      "productCode": "CF-230-0180-003",
+      "productName": "ไส้กรอกไก่สูตรชีส 180g.",
+      "companyName": "LITTLE MUNCHY CO., LTD.",
+      "quantity": 50
+    },
+    {
+      "customerid": "C19522",
+      "productCode": "CF-230-0180-001",
+      "productName": "ไส้กรอกไก่สูตรผสมผัก 180g.",
+      "companyName": "LITTLE MUNCHY CO., LTD.",
+      "quantity": 20
+    },
+    {
+      "customerid": "C19522",
+      "productCode": "CF-201-0060-001",
+      "productName": "ออมุกชีสข้าวโพด",
+      "companyName": "LITTLE MUNCHY CO., LTD.",
+      "quantity": 15
+    }
+  ]
+}

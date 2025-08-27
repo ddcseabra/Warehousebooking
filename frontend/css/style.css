@@ -1,3 +1,227 @@
+/* nav-bar */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #154E84;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    padding: 14px 16px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #CE9650;
+}
+
+.black_login {
+    margin-right: 900%;
+}
+
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    /* ให้ items ขึ้นบรรทัดใหม่ได้ */
+}
+
+.item {
+    width: 30%;
+    margin: 10px;
+}
+
+
 .logo_blue {
     width: 200px;
+}
+
+/* dropdown */
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown {
+    margin-right: 100px;
+}
+
+/* หน้าจอ popup*/
+/*picture_change password */
+body {
+    position: relative;
+    /* ทำให้ ::before อ้างอิงตำแหน่งจาก body */
+    margin: 0;
+    padding: 0;
+}
+
+/* ฟิล์มสีดำโปร่งแสง */
+/* ชั้น overlay */
+
+body::before {
+    content: '';
+    position: fixed;
+    /* ให้คลุมเต็มหน้าจอ แม้จะ scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    /* ชั้นล่างกว่า popup */
+}
+
+/* กล่องป๊อปอัพ */
+.change_pw {
+    position: fixed;
+    /* ให้อยู่กลางหน้าจอ */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    z-index: 2;
+    /* ชั้นสูงกว่า overlay */
+}
+
+.edit_pass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    width: 50%;
+    /* บนจอมือถือ ให้กว้างเกือบเต็มจอ */
+    margin: 0 auto;
+    /* จัดกลางเสมอ */
+    padding: 20px;
+    /* เพิ่มระยะห่างภายในจะทำให้สวยขึ้น */
+    box-sizing: border-box;
+    /* ทำให้ padding ไม่ไปเพิ่มความกว้างของกล่อง */
+
+}
+ 
+/* จัดการแต่ละแถวในฟอร์ม */
+
+/* กำหนดสไตล์ให้แต่ละแถวของฟอร์ม */
+.form-row {
+  display: flex; /* เปิดใช้งาน Flexbox เพื่อให้องค์ประกอบเรียงกันในแนวนอน */
+  align-items: center; /* จัดให้องค์ประกอบอยู่ตรงกลางแนวตั้ง */
+  margin-bottom: 15px; /* เพิ่มระยะห่างระหว่างแถว */
+}
+
+/* กำหนดสไตล์ให้ label ทุกตัว */
+.form-row label {
+  width: 160px; /* กำหนดความกว้างคงที่เพื่อให้ทุก label มีขนาดเท่ากัน */
+  text-align: right; /* จัดข้อความชิดขวา */
+  margin-right: 10px; /* เพิ่มระยะห่างจากช่องกรอกข้อมูล */
+}
+
+/* จัดการส่วนของ input ให้ยืดเต็มพื้นที่ที่เหลือ */
+.form-row input[type="text"],
+.form-row .input-wrapper {
+  flex-grow: 1; /* ให้ยืดเต็มพื้นที่ที่เหลือในแถว */
+}
+
+.form-row .input-wrapper {
+  display: flex; /* ทำให้ input และ icon อยู่ในแถวเดียวกัน */
+  align-items: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+}
+/* icon eye */
+.toggle-password {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.form-row .input-wrapper input {
+  width: 100%; /* ทำให้ input ขยายเต็มพื้นที่ของ wrapper */
+}
+
+/* จัดตำแหน่งของปุ่ม Submit */
+.form-row .button-change {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 14px;
+  width: auto;       /* ปรับให้ปุ่มกว้างตามเนื้อหา */
+  margin: 0;         /* เอา margin-left เดิมออก */
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* สำหรับปุ่ม Submit */
+.form-row:last-of-type {
+    justify-content: center; /* จัดเนื้อหาในแนวนอนให้อยู่ตรงกลาง */
+    align-items: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+}
+/* CSS สำหรับตัว spacer: */
+.form-row .spacer {
+  width: 160px; /* ให้ spacer มีความกว้างเท่ากับ label */
+  margin-right: 10px; /* ให้ spacer มีระยะห่างเท่ากับ label */
+}
+
+
+/* โค้ด CSS สำหรับมือถือ */
+@media (max-width: 600px) {
+    /* ใช้กฎ CSS ที่จัดวาง layout เป็นแนวดิ่ง (column) */
+    .form-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .form-row label,
+    .form-row input[type="text"],
+    .form-row .input-wrapper,
+    .form-row .button-change {
+        width: 100%; /* ทำให้ทุกอย่างยืดเต็มความกว้างของหน้าจอ */
+        box-sizing: border-box; /* สำคัญมาก! ช่วยให้ padding และ border ไม่ทำให้ขนาดล้น */
+    }
+    
+    .form-row label {
+      margin-right: 0;
+      text-align: left;
+    }
+
+    .form-row .button-change {
+        margin: 10px 0; /* เพิ่มระยะห่างบน-ล่าง */
+    }
+
+    .change_pw {
+        padding: 10px; /* เพิ่ม padding รอบๆ ฟอร์มเพื่อไม่ให้ชิดขอบจอเกินไป */
+    }
 }
