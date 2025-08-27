@@ -1,5 +1,15 @@
 [
-  ["C20591", "pass123","C20591"],
-  ["C19522", "password123","C19522"],
-  ["testuser", "testpass","C19523"]
+  {
+    "username": "user1",
+    "password": "pass123",
+    "customername": "Customer A",
+    "customerid": "CUST001"
+  },
+  {
+    "username": "user2",
+    "password": "pass456",
+    "customername": "Customer B",
+    "customerid": "CUST002"
+  }
 ]
+
