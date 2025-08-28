@@ -414,7 +414,7 @@
 
 // ฟังก์ชันโหลด booking.json และหาตัวเลข bookingid ล่าสุด
 async function getLatestBookingId() {
-  const res = await fetch("data/booking.json");
+  const res = await fetch("https://ddcseabra.github.io/Warehousebooking/data/booking.json");
   const bookings = await res.json();
   const latestId = bookings.reduce((max, b) => {
     const num = parseInt(b.bookingid.slice(1)); // ลบตัวอักษร B
@@ -489,3 +489,4 @@ saveButton.addEventListener("click", async () => {
 </body>
 
 </html>
+
