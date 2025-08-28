@@ -413,7 +413,6 @@ loadProducts();
 // Save button
 const saveButton = document.getElementById("save-button");
 saveButton.addEventListener("click", async () => {
-  // ตรวจสอบว่ามี item หรือไม่
   if (bookingItems.length === 0) {
     alert("Please add at least one item!");
     return; 
@@ -430,11 +429,10 @@ saveButton.addEventListener("click", async () => {
     return;
   }
 
-  // สร้าง bookingRecords จาก form
   const bookingRecords = bookingItems.map((item, index) => ({
     bookingid: `B${Date.now()}-${index + 1}`,
     customername: user.customername,
-    type: "inbound",
+    type: "inbound",   // หรือ outbound ตามหน้า
     service,
     subservice: subService,
     bookingdate: date,
@@ -444,29 +442,24 @@ saveButton.addEventListener("click", async () => {
     quantity: item.qty
   }));
 
-  console.log("Form data (all items together):", bookingItems);
-  console.log("Booking records (ready for append):", bookingRecords);
-
-  // --- ขั้นตอนใหม่: ดึง booking.json, filter, append, sessionStorage ---
   try {
-    const res = await fetch("data/booking.json");
-    const allBookings = await res.json();
+    let existingRecords = JSON.parse(sessionStorage.getItem("bookingRecords"));
 
-    // filter ข้อมูลของ user ตาม customername (หรือ customerid ถ้ามี)
-    const userBookings = allBookings.filter(b => b.customername === user.customername);
+    if (!existingRecords) {
+      // ถ้าไม่มี session ให้ดึงจาก booking.json มาก่อน
+      const res = await fetch("data/booking.json");
+      const allBookings = await res.json();
+      existingRecords = allBookings.filter(b => b.customername === user.customername);
+    }
 
-    // append bookingRecords ใหม่
-    const updatedBookings = [...userBookings, ...bookingRecords];
-
-    // เก็บลง sessionStorage
+    // append booking ใหม่เข้าไป
+    const updatedBookings = [...existingRecords, ...bookingRecords];
     sessionStorage.setItem("bookingRecords", JSON.stringify(updatedBookings));
 
-    console.log("SessionStorage bookingRecords (appended):", updatedBookings);
     window.location.href = "https://ddcseabra.github.io/Warehousebooking/history.html";
   } catch (err) {
-    console.error("Error loading booking.json:", err);
+    console.error("Error saving booking:", err);
   }
-
 });
 
 
@@ -476,6 +469,7 @@ saveButton.addEventListener("click", async () => {
 </body>
 
 </html>
+
 
 
 
