@@ -70,7 +70,7 @@
     h1 {
       padding: 20px;
     }
-    
+
     fieldset {
       display: flex;
       flex-direction: column;
@@ -80,23 +80,31 @@
       background: rgba(255, 255, 255, 0.8);
       border-radius: 10px;
       margin-bottom: 20px;
-      
+
     }
 
-   
+
 
     select,
     input,
     textarea {
       padding: 10px;
       font-size: 0.8em;
-      
+
     }
+
+    select {
+      max-width: 100%;
+      width: 100%;
+    }
+
     select option {
       font-size: 0.8em;
-      white-space: normal;   
-       word-wrap: break-word;
+      white-space: normal;
+      word-wrap: break-word;
+
     }
+
     input {
       width: 100%;
     }
@@ -113,25 +121,7 @@
       cursor: pointer;
     }
 
-    #save-button {
-      background-color: #63A89A;
-      padding: 10px 30px;
-      border: none;
-      color: white;
-      border-radius: 5px;
-      font-weight: 600;
-      cursor: pointer;
-    }
 
-    #cancel-button {
-      background-color: rgba(163, 22, 33, 1);
-      padding: 10px 30px;
-      border: none;
-      color: white;
-      border-radius: 5px;
-      font-weight: 600;
-      cursor: pointer;
-    }
 
     table {
       width: 100%;
@@ -152,13 +142,61 @@
       font-size: 0.7em;
     }
 
-    .remove-btn {
-      background: crimson;
-      color: white;
+    /* ปุ่มพื้นฐาน */
+    button {
+      font-family: 'Sarabun', sans-serif;
+      font-weight: 500;
       border: none;
-      padding: 5px 10px;
+      border-radius: 5px;
+      padding: 6px 14px;
+      width: 80px;
       cursor: pointer;
-      border-radius: 4px;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    
+    #add-button {
+      background: #999;
+      color: #fff;
+      font-size: 0.8em;
+      padding: 6px 14px;
+      border-radius: 6px;
+      gap: 6px;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+
+    #add-button:hover {
+      background: #777;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+
+
+    /* ปุ่ม Save */
+    #save-button {
+      background: #63A89A;
+      color: #fff;
+    }
+
+    #save-button:hover {
+      background: #4e8c80;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    /* ปุ่ม Cancel */
+    #cancel-button {
+      background: #A31621;
+      color: #fff;
+    }
+
+    #cancel-button:hover {
+      background: #86121b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
     }
   </style>
 </head>
@@ -167,7 +205,7 @@
 
   <header>
     <div class="header-container">
-      
+
       <a href="menu.html"><img src="/img/home.png" class="header-img" alt=""></a>
       <nav>
         <ul class="header-list">
@@ -188,7 +226,7 @@
         <!-- Service -->
         <fieldset>
           <label for="service">Select Service 🚚</label>
-          <select id="service"  required>
+          <select id="service" required>
             <option value="general-storage" selected>General Storage</option>
             <option value="cold-storage">Cold Storage</option>
           </select>
@@ -310,12 +348,12 @@
       const stockData = await res.json(); // stockData.stocks เป็น array
       const customerProducts = stockData.stocks.filter(p => p.customerid === user.customerid);
 
-customerProducts.forEach(p => {
-  const option = document.createElement("option");
-  option.value = p.productCode;  // ใช้ productCode แทน productid
-  option.textContent = `${p.productName} (Stock: ${p.quantity})`; // ใช้ productName แทน productname
-  productSelect.appendChild(option);
-});
+      customerProducts.forEach(p => {
+        const option = document.createElement("option");
+        option.value = p.productCode;  // ใช้ productCode แทน productid
+        option.textContent = `${p.productName} (Stock: ${p.quantity})`; // ใช้ productName แทน productname
+        productSelect.appendChild(option);
+      });
 
     }
 
@@ -417,14 +455,9 @@ customerProducts.forEach(p => {
     });
 
     loadProducts();
-</script>
+  </script>
 
 
 </body>
 
 </html>
-
-
-
-
-
