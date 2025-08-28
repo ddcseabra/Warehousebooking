@@ -8,168 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="css/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <style>
-        /* --- Base Styles --- */
-        :root {
-            --primary-color: #4A55A2; /* สีน้ำเงินเข้ม */
-            --light-gray: #f0f2f5;
-            --dark-gray: #555;
-            --border-color: #ddd;
-        }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Sarabun', sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1586528116311-06924151d18a?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: var(--dark-gray);
-        }
-        
-        /* --- Overlay --- */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* ฟิล์มสีดำโปร่งแสง */
-        }
-
-        /* --- Login Form Container --- */
-        .login-container {
-            position: relative; /* ให้อยู่เหนือ Overlay */
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
-        }
-
-        /* --- Header --- */
-        .login-header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .login-header p {
-            font-size: 1rem;
-            color: #888;
-            margin-bottom: 30px;
-        }
-
-        /* --- Input Fields --- */
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        
-        .input-group label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'Sarabun', sans-serif;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(74, 85, 162, 0.2);
-        }
-        
-        /* --- Password Field with Icon --- */
-        .password-wrapper {
-            position: relative;
-        }
-
-        .password-wrapper .toggle-password {
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
-            color: #aaa;
-            cursor: pointer;
-        }
-        
-        /* --- Options (Forgot Password) --- */
-        .options {
-            text-align: right;
-            margin-bottom: 25px;
-        }
-        
-        .options a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        .options a:hover {
-            text-decoration: underline;
-        }
-
-        /* --- Login Button --- */
-        .login-button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            background-color: var(--primary-color);
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: 'Sarabun', sans-serif;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .login-button:hover {
-            background-color: #3b438a;
-        }
-
-        /* --- Sign-up Link --- */
-        .signup-link {
-            margin-top: 25px;
-            font-size: 0.9rem;
-            color: #888;
-        }
-        
-        .signup-link a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
 
@@ -178,13 +20,15 @@
             <h1>Welcome</h1>
             <p>Sign in to your account</p>
         </div>
-
         <form>
             <div class="input-group">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" required>
             </div>
-
+            <div class="input-group">
+                <label for="text">username</label>
+                <input type="email" id="username" name="username" required>
+            </div>
             <div class="input-group">
                 <label for="password">Password</label>
                 <div class="password-wrapper">
@@ -192,15 +36,33 @@
                     <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
                 </div>
             </div>
-
-            <div class="options">
-                <a href="forget.html">Forgot Password?</a>
+            <div class="input-group">
+                <label for="confirmpassword">Confirm Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="confirmpassword" name="confirmpassword" required>
+                    <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+                </div>
             </div>
-
-            <button type="submit" class="login-button">Login</button>
+            <div class="input-group">
+                <label for="Name">Name</label>
+                <input type="name" id="name" name="name" required>
+            </div> 
+            <div class="input-group">
+                <label for="Company Name">Company Name</label>
+                <input type="Company name" id="Company name" name="Company name" required>
+            </div>
+            <div class="input-group">
+                <label for="Tel">Tel</label>
+                <input type="Tel" id="tel" name="tel" required>
+            </div>
+            <div class="signup-link">
+           <p> <input type="checkbox" name="checkbox" value="check"required> I Have read and  agree  to the terms of Service and   <a href="../index.html"><u>The Privacy Policy</a></u></p>
+            </div>
+            <Br>
+            <button type="submit" class="login-button">Register</button>
 
             <div class="signup-link">
-                <p>Don't have an account? <a href="regitor.html">Sign up</a></p>
+                <p>Don't have an account? <a href="../index.html">login up</a></p>
             </div>
         </form>
     </div>
