@@ -67,34 +67,25 @@
     </div>
 
 <script>
-        document.querySelector('form').addEventListener('submit', function(event) { 
-            event.preventDefault(); // Prevent default form submission
+    // ทำให้ไอคอนรูปตาทั้งสองอันทำงานได้
+    const togglePasswordIcons = document.querySelectorAll('.toggle-password');
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const name = document.getElementById('name').value;
-            const Company_name = document.getElementById('Company name').value;
-            const tel = document.getElementById('tel').value;
-            const checkbox = document.getElementById('checkbox').value;
-        });
-            // URL of the Google Sheet in CSV format (publish to web)
-            const sheetUrl = 'https://docs.google.com/spreadsheets/d/1utRNwjw9qNwF7emoNO-ONnZMZyNtH8dUygqGcU3rGI0/edit?gid=0#gid=0  const togglePassword = document.getElementById('togglePassword');
-        const password = document.getElementById('password');
-
-        togglePassword.addEventListener('click', function () {
-            // Toggle the type attributeผ
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
+    togglePasswordIcons.forEach(icon => {
+        icon.addEventListener('click', function () {
+            const passwordInput = this.previousElementSibling;
+            // Toggle the type attribute
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
             
-            // Toggle the eye icon
+            // Toggle the eye icon class
             this.classList.toggle('fa-eye-slash');
         });
-    </script>
+    });
+</script>
 
 </body>
 </html>
+
 
 
 
