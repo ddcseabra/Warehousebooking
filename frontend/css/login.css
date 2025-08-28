@@ -54,7 +54,7 @@
             background-color: #fff;
             display: flex;
             justify-content: center;
-            position: relative;
+            position: static;
             overflow: visible;
             }
             
