@@ -353,6 +353,40 @@ window.removeItem = (index) => {
   bookingItems.splice(index, 1);
   renderTable();
 };
+// save button
+const saveButton = document.getElementById("save-button");
+
+saveButton.addEventListener("click", () => {
+  if (bookingItems.length === 0) {
+    alert("Please add at least one item!");
+    return; // หยุดทำงานต่อถ้าไม่มี item
+  }
+
+  // ถ้ามี item ก็สามารถทำขั้นตอนต่อไปได้
+  const user = JSON.parse(localStorage.getItem("user"));
+  const service = serviceSelect.selectedOptions[0].text;
+  const subService = subServiceSelect.selectedOptions[0].text;
+  const date = bookingDate.value;
+  const time = bookingTime.value;
+
+  if (!service || !subService || !date || !time) {
+    alert("Please fill in all required fields!");
+    return;
+  }
+
+  const data = {
+    type: "Inbound",
+    customer: user.customername,
+    service,
+    subService,
+    date,
+    time,
+    items: bookingItems
+  };
+
+  console.log("Data ready to send:", data);
+  // ส่วน fetch ส่งข้อมูลออกไป สามารถใส่หรือเว้นไว้ตามต้องการ
+});
 
 // Cancel
 cancelButton.addEventListener("click", () => {
@@ -373,6 +407,7 @@ loadProducts();
 </body>
 
 </html>
+
 
 
 
