@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 } else {
     // ถ้าไม่ได้เข้ามาหน้านี้ผ่านการ POST ให้ redirect กลับไปหน้าฟอร์ม
-    header('Location: register.html'); // แก้ชื่อไฟล์ให้ตรงกับหน้าฟอร์มของคุณ
+    header('https://ddcseabra.github.io/Warehousebooking/index.html'); // แก้ชื่อไฟล์ให้ตรงกับหน้าฟอร์มของคุณ
     exit();
 }
 ?>
