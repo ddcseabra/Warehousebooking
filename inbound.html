@@ -70,7 +70,7 @@
     h1 {
       padding: 20px;
     }
-
+    
     fieldset {
       display: flex;
       flex-direction: column;
@@ -80,15 +80,23 @@
       background: rgba(255, 255, 255, 0.8);
       border-radius: 10px;
       margin-bottom: 20px;
+      
     }
+
+   
 
     select,
     input,
     textarea {
       padding: 10px;
-      font-size: 16px;
+      font-size: 0.8em;
+      
     }
-
+    select option {
+      font-size: 0.8em;
+      white-space: normal;   
+       word-wrap: break-word;
+    }
     input {
       width: 100%;
     }
@@ -141,6 +149,7 @@
     th {
       background: var(--primary-color);
       color: white;
+      font-size: 0.7em;
     }
 
     .remove-btn {
@@ -158,6 +167,7 @@
 
   <header>
     <div class="header-container">
+      
       <a href="menu.html"><img src="/img/home.png" class="header-img" alt=""></a>
       <nav>
         <ul class="header-list">
@@ -178,7 +188,7 @@
         <!-- Service -->
         <fieldset>
           <label for="service">Select Service 🚚</label>
-          <select id="service" required>
+          <select id="service"  required>
             <option value="general-storage" selected>General Storage</option>
             <option value="cold-storage">Cold Storage</option>
           </select>
