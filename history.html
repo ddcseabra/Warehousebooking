@@ -14,6 +14,8 @@
       --primary-color: #4A55A2;
       --light-gray: #f0f2f5;
       --dark-gray: #555;
+      --inbound-color: #63A89A;
+      --outbound-color: #A31621;
     }
 
     * {
@@ -50,11 +52,11 @@
       gap: 20px;
       height: 100%;
       align-items: center;
+    }
 
-      a {
-        text-decoration: none;
-        color: #fff;
-      }
+    .header-list a {
+      text-decoration: none;
+      color: #fff;
     }
 
     .header-list li.active a {
@@ -99,6 +101,15 @@
       background: rgba(74, 85, 162, 0.1);
     }
 
+    /* แยกสี row ตาม type */
+    tr.inbound {
+      background-color: rgba(99, 168, 154, 0.2);
+    }
+
+    tr.outbound {
+      background-color: rgba(163, 22, 33, 0.2);
+    }
+
     .actions {
       display: flex;
       gap: 10px;
@@ -115,7 +126,7 @@
     }
 
     .back-btn {
-      background: #63A89A;
+      background: var(--inbound-color);
       color: #fff;
     }
 
@@ -125,7 +136,7 @@
     }
 
     .logout-btn {
-      background: #A31621;
+      background: var(--outbound-color);
       color: #fff;
     }
 
@@ -159,7 +170,7 @@
       <table id="history-table">
         <thead>
           <tr>
-            <th>Booking ID</th>
+            <th>Type</th>
             <th>Service</th>
             <th>Sub-Service</th>
             <th>Date</th>
@@ -192,8 +203,9 @@
 
       bookingRecords.forEach(b => {
         const tr = document.createElement("tr");
+        tr.className = b.type; // กำหนด class ตาม type
         tr.innerHTML = `
-          <td>${b.bookingid}</td>
+          <td>${b.type}</td>
           <td>${b.service}</td>
           <td>${b.subservice}</td>
           <td>${b.bookingdate}</td>
