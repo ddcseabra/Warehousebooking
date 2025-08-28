@@ -1,7 +1,7 @@
 
         /* --- Base Styles --- */
         :root {
-            --primary-color: #4A55A2; /* สีน้ำเงินเข้ม */
+            --primary-color: #135DB4; /* สีน้ำเงินเข้ม */
             --light-gray: #f0f2f5;
             --dark-gray: #555;
             --border-color: #ddd;
@@ -21,7 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
             color: var(--dark-gray);
         }
         
