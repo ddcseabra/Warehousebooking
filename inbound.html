@@ -408,6 +408,9 @@ cancelButton.addEventListener("click", () => {
 
 
 loadProducts();
+
+// Save button
+const saveButton = document.getElementById("save-button");
 saveButton.addEventListener("click", async () => {
   // ตรวจสอบว่ามี item หรือไม่
   if (bookingItems.length === 0) {
@@ -472,6 +475,7 @@ saveButton.addEventListener("click", async () => {
 </body>
 
 </html>
+
 
 
 
