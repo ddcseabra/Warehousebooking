@@ -3,82 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Warehouse System</title>
+    <title>Register - Warehouse System</title>
     
+    <!-- Fonts & CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-
-</head>
-<body>
+</head><body>
     <div class="login-container">
         <div class="login-header">
-            <h1>Welcome</h1>
-            <p>Sign in to your account</p>
+            <h1>Create Account</h1>
+            <p>Fill in the form to register</p>
         </div>
-        <form>
+
+        <!-- ฟอร์ม Register -->
+        <form action="https://warehousebookingbackend.onrender.com/" method="POST">
             <div class="input-group">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" required>
             </div>
+
             <div class="input-group">
-                <label for="username">username</label>
-                <input type="username" id="username" name="username" required>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
             </div>
+
             <div class="input-group">
                 <label for="password">Password</label>
                 <div class="password-wrapper">
                     <input type="password" id="password" name="password" required>
-                    <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+                    <i class="fa-solid fa-eye toggle-password"></i>
                 </div>
             </div>
+
             <div class="input-group">
                 <label for="confirmpassword">Confirm Password</label>
                 <div class="password-wrapper">
                     <input type="password" id="confirmpassword" name="confirmpassword" required>
-                    <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+                    <i class="fa-solid fa-eye toggle-password"></i>
                 </div>
             </div>
+
             <div class="input-group">
-                <label for="Name">Name</label>
+                <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
             </div> 
+
             <div class="input-group">
-                <label for="Company Name">Company Name</label>
-                <input type="text" id="Company_name" name="Company name" required>
+                <label for="company_name">Company Name</label>
+                <input type="text" id="company_name" name="company_name" required>
             </div>
+
             <div class="input-group">
-                <label for="Tel">Tel</label>
-                <input type="Tel" id="tel" name="tel" required>
+                <label for="tel">Tel</label>
+                <input type="tel" id="tel" name="tel" required>
             </div>
+
             <div class="signup-link">
-           <p> <input type="checkbox" name="checkbox" value="check"required> I Have read and  agree  to the terms of Service and   <a href="../index.html"><u>The Privacy Policy</a></u></p>
+                <p>
+                    <input type="checkbox" name="checkbox" value="check" required>
+                    I have read and agree to the Terms of Service and 
+                    <a href="../index.html"><u>The Privacy Policy</u></a>
+                </p>
             </div>
-            <Br>
-            <form action="https://warehousebookingbackend.onrender.com/" method="POST">
-            <button type="submit" class="login-button">Register</button>
-            </form>
-            <div class="signup-link">
-                <p>Don't have an account? <a href="../index.html">login up</a></p>
-            </div>
+
+            <br>
+            <button type="submit" class="login-button" name="register">Register</button>
         </form>
+
+        <div class="signup-link">
+            <p>Already have an account? <a href="login.html">Login here</a></p>
+        </div>
     </div>
 
 <script>
-    // ทำให้ไอคอนรูปตาทั้งสองอันทำงานได้
-    const togglePasswordIcons = document.querySelectorAll('.toggle-password');
-
-    togglePasswordIcons.forEach(icon => {
+    // toggle password visibility
+    document.querySelectorAll('.toggle-password').forEach(icon => {
         icon.addEventListener('click', function () {
             const passwordInput = this.previousElementSibling;
-            // Toggle the type attribute
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
-            
-            // Toggle the eye icon class
             this.classList.toggle('fa-eye-slash');
         });
     });
@@ -86,12 +92,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
