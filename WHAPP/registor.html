@@ -66,9 +66,8 @@
         </form>
     </div>
 
-
-    <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
+<script>
+        document.querySelector('form').addEventListener('submit', function(event) { 
             event.preventDefault(); // Prevent default form submission
 
             const email = document.getElementById('email').value;
@@ -79,6 +78,7 @@
             const Company_name = document.getElementById('Company name').value;
             const tel = document.getElementById('tel').value;
             const checkbox = document.getElementById('checkbox').value;
+        });
             // URL of the Google Sheet in CSV format (publish to web)
             const sheetUrl = 'https://docs.google.com/spreadsheets/d/1utRNwjw9qNwF7emoNO-ONnZMZyNtH8dUygqGcU3rGI0/edit?gid=0#gid=0  const togglePassword = document.getElementById('togglePassword');
         const password = document.getElementById('password');
@@ -95,6 +95,7 @@
 
 </body>
 </html>
+
 
 
 
