@@ -268,50 +268,62 @@
     loadProducts();
 
     const saveButton = document.getElementById("save-button");
-    saveButton.addEventListener("click", async () => {
-      if (bookingItems.length === 0) {
-        alert("Please add at least one item!");
-        return; 
-      }
+saveButton.addEventListener("click", async () => {
+  if (bookingItems.length === 0) {
+    alert("Please add at least one item!");
+    return; 
+  }
 
-      const user = JSON.parse(localStorage.getItem("user"));
-      const service = serviceSelect.selectedOptions[0].text;
-      const subService = subServiceSelect.selectedOptions[0].text;
-      const date = bookingDate.value;
-      const time = bookingTime.value;
+  const user = JSON.parse(localStorage.getItem("user"));
+  const service = serviceSelect.selectedOptions[0].text;
+  const subService = subServiceSelect.selectedOptions[0].text;
+  const date = bookingDate.value;
+  const time = bookingTime.value;
 
-      if (!service || !subService || !date || !time) {
-        alert("Please fill in all required fields!");
-        return;
-      }
+  if (!service || !subService || !date || !time) {
+    alert("Please fill in all required fields!");
+    return;
+  }
 
-      const bookingRecords = bookingItems.map((item, index) => ({
-        bookingid: `B${Date.now()}-${index + 1}`,
-        customername: user.customername,
-        type: "outbound",   // ✅ เปลี่ยนจาก inbound เป็น outbound
-        service,
-        subservice: subService,
-        bookingdate: date,
-        bookingtime: time,
-        remark: item.remark || "",
-        productname: item.productName,
-        quantity: item.qty
-      }));
+  const bookingRecords = bookingItems.map((item, index) => ({
+    bookingid: `B${Date.now()}-${index + 1}`,
+    customername: user.customername,
+    type: "outbound",
+    service,
+    subservice: subService,
+    bookingdate: date,
+    bookingtime: time,
+    remark: item.remark || "",
+    productname: item.productName,
+    quantity: item.qty
+  }));
 
-      try {
-        const res = await fetch("data/booking.json");
-        const allBookings = await res.json();
-        const userBookings = allBookings.filter(b => b.customername === user.customername);
-        const updatedBookings = [...userBookings, ...bookingRecords];
-        sessionStorage.setItem("bookingRecords", JSON.stringify(updatedBookings));
-        window.location.href = "https://ddcseabra.github.io/Warehousebooking/history.html";
-      } catch (err) {
-        console.error("Error loading booking.json:", err);
-      }
-    });
+  try {
+    // เช็ค sessionStorage ก่อน
+    let existingRecords = JSON.parse(sessionStorage.getItem("bookingRecords"));
+
+    if (!existingRecords) {
+      // ถ้าไม่มี sessionStorage → โหลดจาก booking.json
+      const res = await fetch("data/booking.json");
+      const allBookings = await res.json();
+      existingRecords = allBookings.filter(b => b.customername === user.customername);
+    }
+
+    // append booking ใหม่
+    const updatedBookings = [...existingRecords, ...bookingRecords];
+    sessionStorage.setItem("bookingRecords", JSON.stringify(updatedBookings));
+
+    // ไปหน้า history
+    window.location.href = "https://ddcseabra.github.io/Warehousebooking/history.html";
+  } catch (err) {
+    console.error("Error saving booking:", err);
+  }
+});
+
   </script>
 </body>
 </html>
+
 
 
 
