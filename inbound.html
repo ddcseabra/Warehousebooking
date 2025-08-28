@@ -357,24 +357,27 @@ window.removeItem = (index) => {
 const saveButton = document.getElementById("save-button");
 
 saveButton.addEventListener("click", () => {
+  // ตรวจสอบว่ามี item หรือไม่
   if (bookingItems.length === 0) {
     alert("Please add at least one item!");
     return; // หยุดทำงานต่อถ้าไม่มี item
   }
 
-  // ถ้ามี item ก็สามารถทำขั้นตอนต่อไปได้
+  // ดึงข้อมูลผู้ใช้และฟิลด์อื่น ๆ
   const user = JSON.parse(localStorage.getItem("user"));
   const service = serviceSelect.selectedOptions[0].text;
   const subService = subServiceSelect.selectedOptions[0].text;
   const date = bookingDate.value;
   const time = bookingTime.value;
 
+  // ตรวจสอบฟิลด์ว่าง
   if (!service || !subService || !date || !time) {
     alert("Please fill in all required fields!");
     return;
   }
 
-  const data = {
+  // เตรียมข้อมูลแบบรวม items
+  const formData = {
     type: "Inbound",
     customer: user.customername,
     service,
@@ -384,8 +387,24 @@ saveButton.addEventListener("click", () => {
     items: bookingItems
   };
 
-  console.log("Data ready to send:", data);
-  // ส่วน fetch ส่งข้อมูลออกไป สามารถใส่หรือเว้นไว้ตามต้องการ
+  // แปลงเป็น array ตาม format booking.json แบบเดิม
+  const bookingRecords = bookingItems.map((item, index) => ({
+    bookingid: `B${Date.now()}-${index + 1}`, // สร้าง ID ชั่วคราว
+    customername: user.customername,
+    type: "inbound",
+    service,
+    subservice: subService,
+    bookingdate: date,
+    bookingtime: time,
+    remark: item.remark || "",
+    productname: item.productName,
+    quantity: item.qty
+  }));
+
+  console.log("Form data (all items together):", formData);
+  console.log("Booking records (ready for JSON file):", bookingRecords);
+
+  // ส่วน fetch สามารถเพิ่มทีหลังได้
 });
 
 // Cancel
@@ -407,6 +426,7 @@ loadProducts();
 </body>
 
 </html>
+
 
 
 
