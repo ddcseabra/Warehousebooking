@@ -4,13 +4,13 @@
 if (isset($_POST['register'])) {
 
     // --- 1. รับข้อมูลจากฟอร์ม + Escape ---
-    $email          = htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES, 'UTF-8');
-    $username       = htmlspecialchars($_POST['username'] ?? '', ENT_QUOTES, 'UTF-8');
+    $email          = $_POST['email'] ?? '';
+    $username       =$_POST['username'] ?? '';
     $password       = $_POST['password'] ?? '';
     $confirmPassword= $_POST['confirmpassword'] ?? '';
-    $name           = htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES, 'UTF-8');
-    $companyName    = htmlspecialchars($_POST['company_name'] ?? '', ENT_QUOTES, 'UTF-8');
-    $tel            = htmlspecialchars($_POST['tel'] ?? '', ENT_QUOTES, 'UTF-8');
+    $name           = $_POST['name'] ?? '';
+    $companyName    = $_POST['company_name'] ?? '';
+    $tel            = $_POST['tel'] ?? '';
 
     // --- 2. Validation ---
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
