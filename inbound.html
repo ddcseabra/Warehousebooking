@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+ 
   <style>
     :root {
       --primary-color: #4A55A2;
@@ -156,7 +156,7 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
-
+    
     #add-button {
       background: #999;
       color: #fff;
@@ -210,10 +210,10 @@
       <a href="menu.html"><img src="/img/home.png" class="header-img" alt=""></a>
       <nav>
         <ul class="header-list">
-          <li class="inbound active" ><a href="#">Inbound</a></li>
-          <li class="outbound"><a href=" https://ddcseabra.github.io/Warehousebooking/outbound.html">Outbound</a></li>
-          <li class="history"><a href="https://ddcseabra.github.io/Warehousebooking/history.html">History</a></li>
-          <li class="stock"><a href="https://ddcseabra.github.io/Warehousebooking/stock.html">Stock</a></li>
+          <li class="inbound><a href="#">Inbound</a></li>
+           <li class="outbound><a href="https://ddcseabra.github.io/Warehousebooking/outbound.html">Outbound</a></li>
+           <li class="history"><a href="https://ddcseabra.github.io/Warehousebooking/history.html">History</a></li>
+           <li class="stock"><a href="https://ddcseabra.github.io/Warehousebooking/stock.html">Stock</a></li>
         </ul>
       </nav>
       <a href="#"><img src="/img/user.png" class="header-img" alt=""></a>
@@ -290,184 +290,184 @@
 
   <script>
     const subServiceOptions = {
-      "general-storage": [
-        { value: "gs-storage-area", text: "Storage Area 5,000 SQ.M" },
-        { value: "gs-load-unload", text: "Load & Unload Container 20' & 40'" },
-        { value: "gs-repack-lashing", text: "Repack Wrap & Lashing product on pallet" },
-        { value: "gs-distribution-dc", text: "Distribution on DC and Drop off point" },
-        { value: "gs-wooden-fumigate", text: "Wooden case with fumigate and certificate" }
-      ],
-      "cold-storage": [
-        { value: "cs-control-room", text: "Control room 25 degree" },
-        { value: "cs-chill-room", text: "Chill room 2-6 degree" },
-        { value: "cs-frozen-room", text: "Frozen room -18 degree" },
-        { value: "cs-distribution-temp", text: "Distribution all temperature controlled to all destination" },
-        { value: "cs-prime-location", text: "Prime location" }
-      ]
-    };
+  "general-storage": [
+    { value: "gs-storage-area", text: "Storage Area 5,000 SQ.M" },
+    { value: "gs-load-unload", text: "Load & Unload Container 20' & 40'" },
+    { value: "gs-repack-lashing", text: "Repack Wrap & Lashing product on pallet" },
+    { value: "gs-distribution-dc", text: "Distribution on DC and Drop off point" },
+    { value: "gs-wooden-fumigate", text: "Wooden case with fumigate and certificate" }
+  ],
+  "cold-storage": [
+    { value: "cs-control-room", text: "Control room 25 degree" },
+    { value: "cs-chill-room", text: "Chill room 2-6 degree" },
+    { value: "cs-frozen-room", text: "Frozen room -18 degree" },
+    { value: "cs-distribution-temp", text: "Distribution all temperature controlled to all destination" },
+    { value: "cs-prime-location", text: "Prime location" }
+  ]
+};
 
-    const serviceSelect = document.getElementById("service");
-    const subServiceSelect = document.getElementById("sub-service");
-    const bookingDate = document.getElementById("booking-date");
-    const bookingTime = document.getElementById("booking-time");
-    const productSelect = document.getElementById("product");
-    const quantityInput = document.getElementById("quantity");
-    const remark = document.getElementById("remark");
-    const addButton = document.getElementById("add-button");
-    const cancelButton = document.getElementById("cancel-button");
-    const itemsTableBody = document.querySelector("#items-table tbody");
+const serviceSelect = document.getElementById("service");
+const subServiceSelect = document.getElementById("sub-service");
+const bookingDate = document.getElementById("booking-date");
+const bookingTime = document.getElementById("booking-time");
+const productSelect = document.getElementById("product");
+const quantityInput = document.getElementById("quantity");
+const remark = document.getElementById("remark");
+const addButton = document.getElementById("add-button");
+const cancelButton = document.getElementById("cancel-button");
+const itemsTableBody = document.querySelector("#items-table tbody");
 
-    let bookingItems = [];
+let bookingItems = [];
 
-    // Update sub-service options
-    function updateSubServices() {
-      const selected = serviceSelect.value;
-      subServiceSelect.innerHTML = '<option value="">-- Select Sub-Service --</option>';
-      subServiceOptions[selected].forEach(opt => {
-        const option = document.createElement("option");
-        option.value = opt.value;
-        option.textContent = opt.text;
-        subServiceSelect.appendChild(option);
-      });
-    }
+// Update sub-service options
+function updateSubServices() {
+  const selected = serviceSelect.value;
+  subServiceSelect.innerHTML = '<option value="">-- Select Sub-Service --</option>';
+  subServiceOptions[selected].forEach(opt => {
+    const option = document.createElement("option");
+    option.value = opt.value;
+    option.textContent = opt.text;
+    subServiceSelect.appendChild(option);
+  });
+}
 
-    serviceSelect.addEventListener("change", updateSubServices);
-    updateSubServices();
+serviceSelect.addEventListener("change", updateSubServices);
+updateSubServices();
 
-    // Load product from stock.json
-    async function loadProducts() {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (!user) {
-        alert("Please login first!");
-        window.location.href = "index.html";
-        return;
-      }
+// Load product from stock.json
+async function loadProducts() {
+  const user = JSON.parse(localStorage.getItem("user")); 
+  if (!user) {
+    alert("Please login first!");
+    window.location.href = "index.html";
+    return;
+  }
 
-      const res = await fetch("data/stocks.json");
-      const stockData = await res.json();
-      const customerProducts = stockData.stocks.filter(p => p.customerid === user.customerid);
+  const res = await fetch("data/stocks.json");
+  const stockData = await res.json(); 
+  const customerProducts = stockData.stocks.filter(p => p.customerid === user.customerid);
 
-      customerProducts.forEach(p => {
-        const option = document.createElement("option");
-        option.value = p.productCode;
-        option.textContent = `${p.productName} (Stock: ${p.quantity})`;
-        productSelect.appendChild(option);
-      });
-    }
+  customerProducts.forEach(p => {
+    const option = document.createElement("option");
+    option.value = p.productCode;  
+    option.textContent = `${p.productName} (Stock: ${p.quantity})`; 
+    productSelect.appendChild(option);
+  });
+}
 
-    // Add product to bookingItems
-    addButton.addEventListener("click", () => {
-      const productId = productSelect.value;
-      const productName = productSelect.selectedOptions[0]?.text;
-      const qty = parseInt(quantityInput.value);
-      const remarkValue = remark.value;
+// Add product to bookingItems
+addButton.addEventListener("click", () => {
+  const productId = productSelect.value;
+  const productName = productSelect.selectedOptions[0]?.text;
+  const qty = parseInt(quantityInput.value);
+  const remarkValue = remark.value;
 
-      if (!productId || !qty || qty <= 0) {
-        alert("Please select product and enter valid quantity!");
-        return;
-      }
+  if (!productId || !qty || qty <= 0) {
+    alert("Please select product and enter valid quantity!");
+    return;
+  }
 
-      bookingItems.push({ productId, productName, qty, remark: remarkValue });
-      renderTable();
+  bookingItems.push({ productId, productName, qty, remark: remarkValue });
+  renderTable();
 
-      productSelect.value = "";
-      quantityInput.value = "";
-      remark.value = "";
-    });
+  productSelect.value = "";
+  quantityInput.value = "";
+  remark.value = "";
+});
 
-    // Render table
-    function renderTable() {
-      itemsTableBody.innerHTML = "";
-      bookingItems.forEach((item, index) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
+// Render table
+function renderTable() {
+  itemsTableBody.innerHTML = "";
+  bookingItems.forEach((item, index) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
       <td>${item.productName}</td>
       <td>${item.qty}</td>
       <td>${item.remark}</td>
       <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
     `;
-        itemsTableBody.appendChild(tr);
-      });
-    }
+    itemsTableBody.appendChild(tr);
+  });
+}
 
-    window.removeItem = (index) => {
-      bookingItems.splice(index, 1);
-      renderTable();
-    };
+window.removeItem = (index) => {
+  bookingItems.splice(index, 1);
+  renderTable();
+};
 
-    // Cancel
-    cancelButton.addEventListener("click", () => {
-      if (confirm("Are you sure you want to cancel? All data will be cleared.")) {
-        serviceSelect.value = "general-storage";
-        bookingDate.value = "";
-        bookingTime.value = "";
-        bookingItems = [];
-        renderTable();
-        updateSubServices();
-      }
-    });
+// Cancel
+cancelButton.addEventListener("click", () => {
+  if (confirm("Are you sure you want to cancel? All data will be cleared.")) {
+    serviceSelect.value = "general-storage";
+    bookingDate.value = "";
+    bookingTime.value = "";
+    bookingItems = [];
+    renderTable();
+    updateSubServices();
+  }
+});
 
 
-    loadProducts();
+loadProducts();
 
-    // Save button
-    const saveButton = document.getElementById("save-button");
-    saveButton.addEventListener("click", async () => {
-      // ตรวจสอบว่ามี item หรือไม่
-      if (bookingItems.length === 0) {
-        alert("Please add at least one item!");
-        return;
-      }
+// Save button
+const saveButton = document.getElementById("save-button");
+saveButton.addEventListener("click", async () => {
+  // ตรวจสอบว่ามี item หรือไม่
+  if (bookingItems.length === 0) {
+    alert("Please add at least one item!");
+    return; 
+  }
 
-      const user = JSON.parse(localStorage.getItem("user"));
-      const service = serviceSelect.selectedOptions[0].text;
-      const subService = subServiceSelect.selectedOptions[0].text;
-      const date = bookingDate.value;
-      const time = bookingTime.value;
+  const user = JSON.parse(localStorage.getItem("user"));
+  const service = serviceSelect.selectedOptions[0].text;
+  const subService = subServiceSelect.selectedOptions[0].text;
+  const date = bookingDate.value;
+  const time = bookingTime.value;
 
-      if (!service || !subService || !date || !time) {
-        alert("Please fill in all required fields!");
-        return;
-      }
+  if (!service || !subService || !date || !time) {
+    alert("Please fill in all required fields!");
+    return;
+  }
 
-      // สร้าง bookingRecords จาก form
-      const bookingRecords = bookingItems.map((item, index) => ({
-        bookingid: `B${Date.now()}-${index + 1}`,
-        customername: user.customername,
-        type: "inbound",
-        service,
-        subservice: subService,
-        bookingdate: date,
-        bookingtime: time,
-        remark: item.remark || "",
-        productname: item.productName,
-        quantity: item.qty
-      }));
+  // สร้าง bookingRecords จาก form
+  const bookingRecords = bookingItems.map((item, index) => ({
+    bookingid: `B${Date.now()}-${index + 1}`,
+    customername: user.customername,
+    type: "inbound",
+    service,
+    subservice: subService,
+    bookingdate: date,
+    bookingtime: time,
+    remark: item.remark || "",
+    productname: item.productName,
+    quantity: item.qty
+  }));
 
-      console.log("Form data (all items together):", bookingItems);
-      console.log("Booking records (ready for append):", bookingRecords);
+  console.log("Form data (all items together):", bookingItems);
+  console.log("Booking records (ready for append):", bookingRecords);
 
-      // --- ขั้นตอนใหม่: ดึง booking.json, filter, append, sessionStorage ---
-      try {
-        const res = await fetch("data/booking.json");
-        const allBookings = await res.json();
+  // --- ขั้นตอนใหม่: ดึง booking.json, filter, append, sessionStorage ---
+  try {
+    const res = await fetch("data/booking.json");
+    const allBookings = await res.json();
 
-        // filter ข้อมูลของ user ตาม customername (หรือ customerid ถ้ามี)
-        const userBookings = allBookings.filter(b => b.customername === user.customername);
+    // filter ข้อมูลของ user ตาม customername (หรือ customerid ถ้ามี)
+    const userBookings = allBookings.filter(b => b.customername === user.customername);
 
-        // append bookingRecords ใหม่
-        const updatedBookings = [...userBookings, ...bookingRecords];
+    // append bookingRecords ใหม่
+    const updatedBookings = [...userBookings, ...bookingRecords];
 
-        // เก็บลง sessionStorage
-        sessionStorage.setItem("bookingRecords", JSON.stringify(updatedBookings));
+    // เก็บลง sessionStorage
+    sessionStorage.setItem("bookingRecords", JSON.stringify(updatedBookings));
 
-        console.log("SessionStorage bookingRecords (appended):", updatedBookings);
-        window.location.href = "https://ddcseabra.github.io/Warehousebooking/history.html";
-      } catch (err) {
-        console.error("Error loading booking.json:", err);
-      }
+    console.log("SessionStorage bookingRecords (appended):", updatedBookings);
+    window.location.href = "https://ddcseabra.github.io/Warehousebooking/history.html";
+  } catch (err) {
+    console.error("Error loading booking.json:", err);
+  }
 
-    });
+});
 
 
   </script>
@@ -476,3 +476,10 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
