@@ -174,58 +174,66 @@
   </main>
 
   <script>
-  async function loadStock() {
-    try {
-      const customerId = localStorage.getItem("customerid"); // ดึง customerid ของผู้ใช้จาก localStorage
-      const response = await fetch('data/stocks.json');
-      const data = await response.json();
-      const tbody = document.querySelector("#stock-table tbody");
-      tbody.innerHTML = "";
-
-      if (!data.stocks || data.stocks.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No stock data found</td></tr>`;
-        return;
-      }
-
-      // filter ตาม customerid
-      const filteredStocks = customerId 
-        ? data.stocks.filter(item => item.customerid === customerId)
-        : data.stocks;
-
-      if (filteredStocks.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No stock data for this user</td></tr>`;
-        return;
-      }
-
-      filteredStocks.forEach(item => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${item.customerid}</td>
-          <td>${item.productCode}</td>
-          <td>${item.productName}</td>
-          <td>${item.companyName}</td>
-          <td>${item.quantity}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    } catch (err) {
-      console.error("Error loading stock:", err);
+async function loadStock() {
+  try {
+    // ดึง user object จาก localStorage
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || !user.customerid) {
+      document.querySelector("#stock-table tbody").innerHTML =
+        `<tr><td colspan="5" style="text-align:center;">No user logged in</td></tr>`;
+      return;
     }
-  }
 
-  function goBack() {
-    window.history.back();
-  }
+    const response = await fetch('data/stocks.json');
+    const data = await response.json();
+    const tbody = document.querySelector("#stock-table tbody");
+    tbody.innerHTML = "";
 
-  function logout() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("customerid"); // ลบ customerid ด้วย
-    sessionStorage.clear();
-    window.location.href = "index.html";
-  }
+    if (!data.stocks || data.stocks.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No stock data found</td></tr>`;
+      return;
+    }
 
-  loadStock();
+    // filter ตาม customerid ของ user
+    const filteredStocks = data.stocks.filter(item => item.customerid === user.customerid);
+
+    if (filteredStocks.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No stock data for this user</td></tr>`;
+      return;
+    }
+
+    filteredStocks.forEach(item => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.customerid}</td>
+        <td>${item.productCode}</td>
+        <td>${item.productName}</td>
+        <td>${item.companyName}</td>
+        <td>${item.quantity}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+  } catch (err) {
+    console.error("Error loading stock:", err);
+    document.querySelector("#stock-table tbody").innerHTML =
+      `<tr><td colspan="5" style="text-align:center;">Error loading stock data</td></tr>`;
+  }
+}
+
+function goBack() {
+  window.history.back();
+}
+
+function logout() {
+  localStorage.removeItem("user");
+  sessionStorage.clear();
+  window.location.href = "index.html";
+}
+
+loadStock();
 </script>
+
 
 </body>
 
