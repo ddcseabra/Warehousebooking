@@ -101,18 +101,15 @@
       background: rgba(74, 85, 162, 0.1);
     }
 
-    /* แยกสี row ตาม type */
-    tr.inbound {
+    /* สีเฉพาะเซลล์ Type */
+    td.type-inbound {
       background-color: rgba(99, 168, 154, 0.2);
+      font-weight: 600;
     }
 
-    tr.outbound {
+    td.type-outbound {
       background-color: rgba(163, 22, 33, 0.2);
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
+      font-weight: 600;
     }
 
     button {
@@ -203,9 +200,9 @@
 
       bookingRecords.forEach(b => {
         const tr = document.createElement("tr");
-        tr.className = b.type; // กำหนด class ตาม type
+        const typeClass = b.type.toLowerCase() === "inbound" ? "type-inbound" : "type-outbound";
         tr.innerHTML = `
-          <td>${b.type}</td>
+          <td class="${typeClass}">${b.type}</td>
           <td>${b.service}</td>
           <td>${b.subservice}</td>
           <td>${b.bookingdate}</td>
