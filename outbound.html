@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
+    /* ===== CSS เดิมทุกอย่าง ไม่เปลี่ยน ===== */
     :root {
       --primary-color: #4A55A2;
       --light-gray: #f0f2f5;
@@ -24,201 +26,288 @@
       color: var(--dark-gray);
     }
     .header-container {
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      background: var(--primary-color);
-      height: 10vh;
-      width: 100%;
+      padding: 20px; display: flex; justify-content: space-between;
+      background: var(--primary-color); height: 10vh; width: 100%;
     }
     .header-img { height: 100%; }
-    .header-list {
-      display: flex;
-      list-style: none;
-      gap: 20px;
-      height: 100%;
-      align-items: center;
-      a {
-        text-decoration: none;
-        color: #fff;
-        
-      }
-    }
-    .header-list li.active a {
-  border-bottom: 2px solid #fff; /* เส้นใต้สีขาว */
-  font-weight: 600;              /* ตัวหนาเล็กน้อย */
-}
-.main-container {
-      max-width: 1000px;
-      justify-self: center;
-    }
+    .header-list { display: flex; list-style: none; gap: 20px; height: 100%; align-items: center; }
+    .header-list a { text-decoration: none; color: #fff; }
+    .header-list li.active a { border-bottom: 2px solid #fff; font-weight: 600; }
+    .main-container { max-width: 1000px; margin: auto; }
     h1 { padding: 20px; }
     fieldset {
-      display: flex;
-      flex-direction: column;
-      border: none;
-      padding: 20px;
-      gap: 10px;
-      background: rgba(255,255,255,0.8);
-      border-radius: 10px;
+      display: flex; flex-direction: column; border: none;
+      padding: 20px; gap: 10px;
+      background: rgba(255, 255, 255, 0.8); border-radius: 10px; margin-bottom: 20px;
     }
-    select, input, textarea { padding: 10px; font-size: 16px; }
+    select, input, textarea { padding: 10px; font-size: 0.8em; }
+    select { max-width: 100%; width: 100%; }
+    select option { font-size: 0.8em; white-space: normal; word-wrap: break-word; }
     input { width: 100%; }
-    .form-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 20px;
-      padding: 0 20px 20px;
+    .form-actions { display: flex; justify-content: flex-end; gap: 20px; padding: 0 20px 20px; }
+    input[type="date"], input[type="time"] { cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    th, td { padding: 10px; text-align: left; border: 1px solid #ddd; }
+    th { background: var(--primary-color); color: white; font-size: 0.7em; }
+    button {
+      font-family: 'Sarabun', sans-serif; font-weight: 500; border: none;
+      border-radius: 5px; padding: 6px 14px; width: 80px; cursor: pointer;
+      transition: all 0.25s ease; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
-    input[type="date"],
-    input[type="time"] {
-      cursor: pointer;
+    #add-button {
+      background: #999; color: #fff; font-size: 0.8em;
+      padding: 6px 14px; border-radius: 6px; gap: 6px; margin-top: 10px;
+      transition: all 0.2s ease;
     }
-    #save-button { background-color: #63A89A; padding:10px 30px; border:none; color:white; border-radius:5px; font-weight:600; cursor:pointer;}
-    #cancel-button { background-color: rgba(163,22,33,1); padding:10px 30px; border:none; color:white; border-radius:5px; font-weight:600; cursor:pointer;}
+    #add-button:hover { background: #777; transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
+    #save-button { background: #63A89A; color: #fff; }
+    #save-button:hover { background: #4e8c80; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); }
+    #cancel-button { background: #A31621; color: #fff; }
+    #cancel-button:hover { background: #86121b; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); }
   </style>
 </head>
+
 <body>
+  <header>
+    <div class="header-container">
+      <a href="menu.html"><img src="/img/home.png" class="header-img" alt=""></a>
+      <nav>
+        <ul class="header-list">
+          <li><a href="inbound.html">Inbound</a></li>
+          <li class="active"><a href="#">Outbound</a></li>
+          <li><a href="#">Stock</a></li>
+        </ul>
+      </nav>
+      <a href="#"><img src="/img/user.png" class="header-img" alt=""></a>
+    </div>
+  </header>
 
-<header>
-  <div class="header-container">
-    <a href="#"><img src="/img/home.png" class="header-img" alt=""></a>
-    <nav>
-      <ul class="header-list">
-        <li><a href="inbound.html">Inbound</a></li>
-        <li class="active"><a href="#">Outbound</a></li>
-        <li><a href="#">Stock</a></li>
-      </ul>
-    </nav>
-    <a href="#"><img src="/img/user.png" class="header-img" alt=""></a>
-  </div>
-</header>
+  <main>
+    <section class="booking-section">
+      <div class="main-container">
+        <h1>Create New Outbound Booking</h1>
 
-<main>
-  <div class="main-container">
-<section class="booking-section">
-  <h1>Create New Outbound Booking</h1>
+        <!-- Service -->
+        <fieldset>
+          <label for="service">Select Service 🚚</label>
+          <select id="service" required>
+            <option value="general-storage" selected>General Storage</option>
+            <option value="cold-storage">Cold Storage</option>
+          </select>
 
-  <fieldset>
-    <label for="service">Select Service 🚚</label>
-    <select id="service" required>
-      <option value="general-storage" selected>General Storage</option>
-      <option value="cold-storage">Cold Storage</option>
-    </select>
+          <label for="sub-service">Select Sub-Service 🚚</label>
+          <select id="sub-service" required>
+            <option value="">-- Select Sub-Service --</option>
+          </select>
+        </fieldset>
 
-    <label for="sub-service">Select Sub-Service 🚚</label>
-    <select id="sub-service" required>
-      <option value="">-- Select Sub-Service --</option>
-    </select>
-  </fieldset>
+        <!-- Date Time -->
+        <fieldset>
+          <label for="booking-date">Date 📅</label>
+          <input type="date" id="booking-date" required>
 
-  <fieldset>
-    <label for="booking-date">Date 📅</label>
-    <input type="date" id="booking-date" required>
+          <label for="booking-time">Time 🕒</label>
+          <input type="time" id="booking-time" required>
+        </fieldset>
 
-    <label for="booking-time">Time 🕒</label>
-    <input type="time" id="booking-time" required>
-  </fieldset>
+        <!-- Product Select -->
+        <fieldset>
+          <label for="product">Select Product 📦</label>
+          <select id="product" required>
+            <option value="">-- Select Product --</option>
+          </select>
 
-  <fieldset>
-    <label for="remark">Remark 💬</label>
-    <textarea id="remark" rows="4" placeholder="Enter remark ..." style="resize: none;"></textarea>
-  </fieldset>
+          <label for="quantity">Quantity 🔢</label>
+          <input type="number" id="quantity" min="1" required>
 
-  <div class="form-actions">
-    <button type="button" id="cancel-button">Cancel</button>
-    <button type="button" id="save-button">Save</button>
-  </div>
+          <label for="remark">Remark 💬</label>
+          <textarea id="remark" rows="2" placeholder="Enter remark ..." style="resize: none;"></textarea>
 
-</section>
-</div>
-</main>
+          <button type="button" id="add-button">+ Add</button>
+        </fieldset>
 
-<script>
-const webAppUrl = "https://script.google.com/macros/s/AKfycbxzyUwsTxDll7QVH0eFwcA_DufRJV48eh-BtPISn3A5QkiOaeMnsMdjHzXgm4HawpQn/exec";
+        <!-- Gallery -->
+        <fieldset>
+          <h3>Current Items</h3>
+          <table id="items-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Remark</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </fieldset>
 
-const subServiceOptions = {
-  "general-storage":[
-    {value:"gs-storage-area",text:"Storage Area 5,000 SQ.M"},
-    {value:"gs-load-unload",text:"Load & Unload Container 20' & 40'"},
-    {value:"gs-repack-lashing",text:"Repack Wrap & Lashing product on pallet"},
-    {value:"gs-distribution-dc",text:"Distribution on DC and Drop off point"},
-    {value:"gs-wooden-fumigate",text:"Wooden case with fumigate and certificate"}
-  ],
-  "cold-storage":[
-    {value:"cs-control-room",text:"Control room 25 degree"},
-    {value:"cs-chill-room",text:"Chill room 2-6 degree"},
-    {value:"cs-frozen-room",text:"Frozen room -18 degree"},
-    {value:"cs-distribution-temp",text:"Distribution all temperature controlled to all destination"},
-    {value:"cs-prime-location",text:"Prime location"}
-  ]
-};
+        <div class="form-actions">
+          <button type="button" id="cancel-button">Cancel</button>
+          <button type="button" id="save-button">Save</button>
+        </div>
+      </div>
+    </section>
+  </main>
 
-const serviceSelect = document.getElementById("service");
-const subServiceSelect = document.getElementById("sub-service");
-const bookingDate = document.getElementById("booking-date");
-const bookingTime = document.getElementById("booking-time");
-const remark = document.getElementById("remark");
-const saveButton = document.getElementById("save-button");
-const cancelButton = document.getElementById("cancel-button");
+  <script>
+    /* ===== JS เดิมเกือบทั้งหมด เปลี่ยนแค่ type: outbound ===== */
+    const subServiceOptions = {
+      "general-storage": [
+        { value: "gs-storage-area", text: "Storage Area 5,000 SQ.M" },
+        { value: "gs-load-unload", text: "Load & Unload Container 20' & 40'" },
+        { value: "gs-repack-lashing", text: "Repack Wrap & Lashing product on pallet" },
+        { value: "gs-distribution-dc", text: "Distribution on DC and Drop off point" },
+        { value: "gs-wooden-fumigate", text: "Wooden case with fumigate and certificate" }
+      ],
+      "cold-storage": [
+        { value: "cs-control-room", text: "Control room 25 degree" },
+        { value: "cs-chill-room", text: "Chill room 2-6 degree" },
+        { value: "cs-frozen-room", text: "Frozen room -18 degree" },
+        { value: "cs-distribution-temp", text: "Distribution all temperature controlled to all destination" },
+        { value: "cs-prime-location", text: "Prime location" }
+      ]
+    };
 
-// Update sub-service options
-function updateSubServices(){
-  const selected = serviceSelect.value;
-  subServiceSelect.innerHTML = '<option value="">-- Select Sub-Service --</option>';
-  subServiceOptions[selected].forEach(opt=>{
-    const option = document.createElement("option");
-    option.value = opt.value;
-    option.textContent = opt.text;
-    subServiceSelect.appendChild(option);
-  });
-}
+    const serviceSelect = document.getElementById("service");
+    const subServiceSelect = document.getElementById("sub-service");
+    const bookingDate = document.getElementById("booking-date");
+    const bookingTime = document.getElementById("booking-time");
+    const productSelect = document.getElementById("product");
+    const quantityInput = document.getElementById("quantity");
+    const remark = document.getElementById("remark");
+    const addButton = document.getElementById("add-button");
+    const cancelButton = document.getElementById("cancel-button");
+    const itemsTableBody = document.querySelector("#items-table tbody");
 
-serviceSelect.addEventListener("change", updateSubServices);
-updateSubServices();
+    let bookingItems = [];
 
-cancelButton.addEventListener("click", ()=>{
-  if(confirm("Are you sure you want to cancel? All data will be cleared.")){
-    serviceSelect.value = "general-storage";
-    bookingDate.value = "";
-    bookingTime.value = "";
-    remark.value = "";
+    function updateSubServices() {
+      const selected = serviceSelect.value;
+      subServiceSelect.innerHTML = '<option value="">-- Select Sub-Service --</option>';
+      subServiceOptions[selected].forEach(opt => {
+        const option = document.createElement("option");
+        option.value = opt.value;
+        option.textContent = opt.text;
+        subServiceSelect.appendChild(option);
+      });
+    }
+    serviceSelect.addEventListener("change", updateSubServices);
     updateSubServices();
-  }
-});
 
-saveButton.addEventListener("click", ()=>{
-  const service = serviceSelect.selectedOptions[0].text;
-  const subService = subServiceSelect.selectedOptions[0].text;
-  const date = bookingDate.value;
-  const time = bookingTime.value;
-  const remarkValue = remark.value;
+    async function loadProducts() {
+      const user = JSON.parse(localStorage.getItem("user")); 
+      if (!user) {
+        alert("Please login first!");
+        window.location.href = "index.html";
+        return;
+      }
 
-  if(!service || !subService || !date || !time){
-    alert("Please fill in all required fields!");
-    return;
-  }
+      const res = await fetch("data/stocks.json");
+      const stockData = await res.json(); 
+      const customerProducts = stockData.stocks.filter(p => p.customerid === user.customerid);
 
-  // ส่งข้อมูลไป Web App
-  const url = `${webAppUrl}?type=Outbound&service=${encodeURIComponent(service)}&subService=${encodeURIComponent(subService)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&remark=${encodeURIComponent(remarkValue)}`;
+      customerProducts.forEach(p => {
+        const option = document.createElement("option");
+        option.value = p.productCode;  
+        option.textContent = `${p.productName} (Stock: ${p.quantity})`; 
+        productSelect.appendChild(option);
+      });
+    }
 
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      if(data.status === "success"){
-        alert("Booking saved! ID: " + data.bookingId);
+    addButton.addEventListener("click", () => {
+      const productId = productSelect.value;
+      const productName = productSelect.selectedOptions[0]?.text;
+      const qty = parseInt(quantityInput.value);
+      const remarkValue = remark.value;
+
+      if (!productId || !qty || qty <= 0) {
+        alert("Please select product and enter valid quantity!");
+        return;
+      }
+
+      bookingItems.push({ productId, productName, qty, remark: remarkValue });
+      renderTable();
+
+      productSelect.value = "";
+      quantityInput.value = "";
+      remark.value = "";
+    });
+
+    function renderTable() {
+      itemsTableBody.innerHTML = "";
+      bookingItems.forEach((item, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${item.productName}</td>
+          <td>${item.qty}</td>
+          <td>${item.remark}</td>
+          <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
+        `;
+        itemsTableBody.appendChild(tr);
+      });
+    }
+
+    window.removeItem = (index) => {
+      bookingItems.splice(index, 1);
+      renderTable();
+    };
+
+    cancelButton.addEventListener("click", () => {
+      if (confirm("Are you sure you want to cancel? All data will be cleared.")) {
         serviceSelect.value = "general-storage";
         bookingDate.value = "";
         bookingTime.value = "";
-        remark.value = "";
+        bookingItems = [];
+        renderTable();
         updateSubServices();
-      } else {
-        alert("Error: " + data.message);
       }
-    })
-    .catch(err => alert("Error: " + err));
-});
-</script>
+    });
 
+    loadProducts();
+
+    const saveButton = document.getElementById("save-button");
+    saveButton.addEventListener("click", async () => {
+      if (bookingItems.length === 0) {
+        alert("Please add at least one item!");
+        return; 
+      }
+
+      const user = JSON.parse(localStorage.getItem("user"));
+      const service = serviceSelect.selectedOptions[0].text;
+      const subService = subServiceSelect.selectedOptions[0].text;
+      const date = bookingDate.value;
+      const time = bookingTime.value;
+
+      if (!service || !subService || !date || !time) {
+        alert("Please fill in all required fields!");
+        return;
+      }
+
+      const bookingRecords = bookingItems.map((item, index) => ({
+        bookingid: `B${Date.now()}-${index + 1}`,
+        customername: user.customername,
+        type: "outbound",   // ✅ เปลี่ยนจาก inbound เป็น outbound
+        service,
+        subservice: subService,
+        bookingdate: date,
+        bookingtime: time,
+        remark: item.remark || "",
+        productname: item.productName,
+        quantity: item.qty
+      }));
+
+      try {
+        const res = await fetch("data/booking.json");
+        const allBookings = await res.json();
+        const userBookings = allBookings.filter(b => b.customername === user.customername);
+        const updatedBookings = [...userBookings, ...bookingRecords];
+        sessionStorage.setItem("bookingRecords", JSON.stringify(updatedBookings));
+        window.location.href = "https://ddcseabra.github.io/Warehousebooking/history.html";
+      } catch (err) {
+        console.error("Error loading booking.json:", err);
+      }
+    });
+  </script>
 </body>
 </html>
