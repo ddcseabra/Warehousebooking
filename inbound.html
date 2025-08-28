@@ -288,199 +288,177 @@
   </main>
 
   <script>
-    const webAppUrl = "https://script.google.com/macros/s/AKfycbxzyUwsTxDll7QVH0eFwcA_DufRJV48eh-BtPISn3A5QkiOaeMnsMdjHzXgm4HawpQn/exec";
-
     const subServiceOptions = {
-      "general-storage": [
-        { value: "gs-storage-area", text: "Storage Area 5,000 SQ.M" },
-        { value: "gs-load-unload", text: "Load & Unload Container 20' & 40'" },
-        { value: "gs-repack-lashing", text: "Repack Wrap & Lashing product on pallet" },
-        { value: "gs-distribution-dc", text: "Distribution on DC and Drop off point" },
-        { value: "gs-wooden-fumigate", text: "Wooden case with fumigate and certificate" }
-      ],
-      "cold-storage": [
-        { value: "cs-control-room", text: "Control room 25 degree" },
-        { value: "cs-chill-room", text: "Chill room 2-6 degree" },
-        { value: "cs-frozen-room", text: "Frozen room -18 degree" },
-        { value: "cs-distribution-temp", text: "Distribution all temperature controlled to all destination" },
-        { value: "cs-prime-location", text: "Prime location" }
-      ]
-    };
+  "general-storage": [
+    { value: "gs-storage-area", text: "Storage Area 5,000 SQ.M" },
+    { value: "gs-load-unload", text: "Load & Unload Container 20' & 40'" },
+    { value: "gs-repack-lashing", text: "Repack Wrap & Lashing product on pallet" },
+    { value: "gs-distribution-dc", text: "Distribution on DC and Drop off point" },
+    { value: "gs-wooden-fumigate", text: "Wooden case with fumigate and certificate" }
+  ],
+  "cold-storage": [
+    { value: "cs-control-room", text: "Control room 25 degree" },
+    { value: "cs-chill-room", text: "Chill room 2-6 degree" },
+    { value: "cs-frozen-room", text: "Frozen room -18 degree" },
+    { value: "cs-distribution-temp", text: "Distribution all temperature controlled to all destination" },
+    { value: "cs-prime-location", text: "Prime location" }
+  ]
+};
 
-    const serviceSelect = document.getElementById("service");
-    const subServiceSelect = document.getElementById("sub-service");
-    const bookingDate = document.getElementById("booking-date");
-    const bookingTime = document.getElementById("booking-time");
-    const productSelect = document.getElementById("product");
-    const quantityInput = document.getElementById("quantity");
-    const remark = document.getElementById("remark");
-    const addButton = document.getElementById("add-button");
-    const saveButton = document.getElementById("save-button");
-    const cancelButton = document.getElementById("cancel-button");
-    const itemsTableBody = document.querySelector("#items-table tbody");
+const serviceSelect = document.getElementById("service");
+const subServiceSelect = document.getElementById("sub-service");
+const bookingDate = document.getElementById("booking-date");
+const bookingTime = document.getElementById("booking-time");
+const productSelect = document.getElementById("product");
+const quantityInput = document.getElementById("quantity");
+const remark = document.getElementById("remark");
+const addButton = document.getElementById("add-button");
+const cancelButton = document.getElementById("cancel-button");
+const itemsTableBody = document.querySelector("#items-table tbody");
 
-    let bookingItems = [];
+let bookingItems = [];
 
-    // Update sub-service options
-    function updateSubServices() {
-      const selected = serviceSelect.value;
-      subServiceSelect.innerHTML = '<option value="">-- Select Sub-Service --</option>';
-      subServiceOptions[selected].forEach(opt => {
-        const option = document.createElement("option");
-        option.value = opt.value;
-        option.textContent = opt.text;
-        subServiceSelect.appendChild(option);
-      });
-    }
-
-    serviceSelect.addEventListener("change", updateSubServices);
-    updateSubServices();
-
-    // Load product from stock.json
-    async function loadProducts() {
-      const user = JSON.parse(localStorage.getItem("user")); // ✅ ดึง user จาก localStorage
-      if (!user) {
-        alert("Please login first!");
-        window.location.href = "index.html";
-        return;
-      }
-
-      const res = await fetch("data/stocks.json");
-      const stockData = await res.json(); // stockData.stocks เป็น array
-      const customerProducts = stockData.stocks.filter(p => p.customerid === user.customerid);
-
-      customerProducts.forEach(p => {
-        const option = document.createElement("option");
-        option.value = p.productCode;  // ใช้ productCode แทน productid
-        option.textContent = `${p.productName} (Stock: ${p.quantity})`; // ใช้ productName แทน productname
-        productSelect.appendChild(option);
-      });
-
-    }
-
-    // Add product to bookingItems
-    addButton.addEventListener("click", () => {
-      const productId = productSelect.value;
-      const productName = productSelect.selectedOptions[0]?.text;
-      const qty = parseInt(quantityInput.value);
-      const remarkValue = remark.value;
-
-      if (!productId || !qty || qty <= 0) {
-        alert("Please select product and enter valid quantity!");
-        return;
-      }
-
-      bookingItems.push({ productId, productName, qty, remark: remarkValue });
-      renderTable();
-
-      productSelect.value = "";
-      quantityInput.value = "";
-      remark.value = "";
-    });
-
-    // Render table
-    function renderTable() {
-      itemsTableBody.innerHTML = "";
-      bookingItems.forEach((item, index) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${item.productName}</td>
-          <td>${item.qty}</td>
-          <td>${item.remark}</td>
-          <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
-        `;
-        itemsTableBody.appendChild(tr);
-      });
-    }
-
-    window.removeItem = (index) => {
-      bookingItems.splice(index, 1);
-      renderTable();
-    };
-
-    // Cancel
-    cancelButton.addEventListener("click", () => {
-      if (confirm("Are you sure you want to cancel? All data will be cleared.")) {
-        serviceSelect.value = "general-storage";
-        bookingDate.value = "";
-        bookingTime.value = "";
-        bookingItems = [];
-        renderTable();
-        updateSubServices();
-      }
-    });
-
-    // =================== เพิ่มส่วนบันทึก BookingItems ===================
-
-// ฟังก์ชันโหลด booking.json และหาตัวเลข bookingid ล่าสุด
-async function getLatestBookingId() {
-  const res = await fetch("https://ddcseabra.github.io/Warehousebooking/data/booking.json");
-  const bookings = await res.json();
-  const latestId = bookings.reduce((max, b) => {
-    const num = parseInt(b.bookingid.slice(1)); // ลบตัวอักษร B
-    return num > max ? num : max;
-  }, 0);
-  return { bookings, latestId };
+// Update sub-service options
+function updateSubServices() {
+  const selected = serviceSelect.value;
+  subServiceSelect.innerHTML = '<option value="">-- Select Sub-Service --</option>';
+  subServiceOptions[selected].forEach(opt => {
+    const option = document.createElement("option");
+    option.value = opt.value;
+    option.textContent = opt.text;
+    subServiceSelect.appendChild(option);
+  });
 }
 
-// ฟังก์ชันดาวน์โหลด JSON (ใช้แทนการเขียนไฟล์บน GitHub Pages)
-function downloadJSON(data, filename) {
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = filename;
-  link.click();
-}
+serviceSelect.addEventListener("change", updateSubServices);
+updateSubServices();
 
-// ต่อเข้ากับปุ่ม Save ของคุณ
-saveButton.addEventListener("click", async () => {
-  if (bookingItems.length === 0) {
-    alert("กรุณาเพิ่มสินค้าอย่างน้อยหนึ่งรายการ");
+// Load product from stock.json
+async function loadProducts() {
+  const user = JSON.parse(localStorage.getItem("user")); 
+  if (!user) {
+    alert("Please login first!");
+    window.location.href = "index.html";
     return;
   }
 
+  const res = await fetch("data/stocks.json");
+  const stockData = await res.json(); 
+  const customerProducts = stockData.stocks.filter(p => p.customerid === user.customerid);
+
+  customerProducts.forEach(p => {
+    const option = document.createElement("option");
+    option.value = p.productCode;  
+    option.textContent = `${p.productName} (Stock: ${p.quantity})`; 
+    productSelect.appendChild(option);
+  });
+}
+
+// Add product to bookingItems
+addButton.addEventListener("click", () => {
+  const productId = productSelect.value;
+  const productName = productSelect.selectedOptions[0]?.text;
+  const qty = parseInt(quantityInput.value);
+  const remarkValue = remark.value;
+
+  if (!productId || !qty || qty <= 0) {
+    alert("Please select product and enter valid quantity!");
+    return;
+  }
+
+  bookingItems.push({ productId, productName, qty, remark: remarkValue });
+  renderTable();
+
+  productSelect.value = "";
+  quantityInput.value = "";
+  remark.value = "";
+});
+
+// Render table
+function renderTable() {
+  itemsTableBody.innerHTML = "";
+  bookingItems.forEach((item, index) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${item.productName}</td>
+      <td>${item.qty}</td>
+      <td>${item.remark}</td>
+      <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
+    `;
+    itemsTableBody.appendChild(tr);
+  });
+}
+
+window.removeItem = (index) => {
+  bookingItems.splice(index, 1);
+  renderTable();
+};
+
+// Cancel
+cancelButton.addEventListener("click", () => {
+  if (confirm("Are you sure you want to cancel? All data will be cleared.")) {
+    serviceSelect.value = "general-storage";
+    bookingDate.value = "";
+    bookingTime.value = "";
+    bookingItems = [];
+    renderTable();
+    updateSubServices();
+  }
+});
+
+
+loadProducts();
+const saveButton = document.getElementById("save-button");
+
+saveButton.addEventListener("click", () => {
+  // ตรวจสอบว่ามี item หรือไม่
+  if (bookingItems.length === 0) {
+    alert("Please add at least one item!");
+    return; // หยุดทำงานต่อถ้าไม่มี item
+  }
+
+  // ดึงข้อมูลผู้ใช้และฟิลด์อื่น ๆ
   const user = JSON.parse(localStorage.getItem("user"));
   const service = serviceSelect.selectedOptions[0].text;
   const subService = subServiceSelect.selectedOptions[0].text;
   const date = bookingDate.value;
   const time = bookingTime.value;
 
+  // ตรวจสอบฟิลด์ว่าง
   if (!service || !subService || !date || !time) {
-    alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+    alert("Please fill in all required fields!");
     return;
   }
 
-  const { bookings, latestId } = await getLatestBookingId();
-  let newIdCounter = latestId;
+  // เตรียมข้อมูลแบบรวม items
+  const formData = {
+    type: "Inbound",
+    customer: user.customername,
+    service,
+    subService,
+    date,
+    time,
+    items: bookingItems
+  };
 
-  const newBookings = bookingItems.map(item => {
-    newIdCounter++;
-    return {
-      bookingid: "B" + newIdCounter.toString().padStart(3, "0"),
-      customername: user.customername,
-      type: "inbound",
-      service,
-      subservice: subService,
-      bookingdate: date,
-      bookingtime: time,
-      remark: item.remark,
-      productname: item.productName,
-      quantity: item.qty
-    };
-  });
+  // แปลงเป็น array ตาม format booking.json แบบเดิม
+  const bookingRecords = bookingItems.map((item, index) => ({
+    bookingid: `B${Date.now()}-${index + 1}`, // สร้าง ID ชั่วคราว
+    customername: user.customername,
+    type: "inbound",
+    service,
+    subservice: subService,
+    bookingdate: date,
+    bookingtime: time,
+    remark: item.remark || "",
+    productname: item.productName,
+    quantity: item.qty
+  }));
 
-  const updatedBookings = [...bookings, ...newBookings];
+  console.log("Form data (all items together):", formData);
+  console.log("Booking records (ready for JSON file):", bookingRecords);
 
-  downloadJSON(updatedBookings, "booking.json");
-  alert("บันทึกสำเร็จ! ดาวน์โหลดไฟล์ booking.json เรียบร้อยแล้ว");
-
-  // ล้างข้อมูลหลังบันทึก
-  bookingItems = [];
-  renderTable();
-  bookingDate.value = "";
-  bookingTime.value = "";
-  serviceSelect.value = "general-storage";
-  updateSubServices();
+  // ส่วน fetch สามารถเพิ่มทีหลังได้
 });
 
   </script>
@@ -489,4 +467,5 @@ saveButton.addEventListener("click", async () => {
 </body>
 
 </html>
+
 
