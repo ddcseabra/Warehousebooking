@@ -461,7 +461,7 @@ saveButton.addEventListener("click", async () => {
     sessionStorage.setItem("bookingRecords", JSON.stringify(updatedBookings));
 
     console.log("SessionStorage bookingRecords (appended):", updatedBookings);
-
+    window.location.href = "https://ddcseabra.github.io/Warehousebooking/history.html";
   } catch (err) {
     console.error("Error loading booking.json:", err);
   }
@@ -475,6 +475,7 @@ saveButton.addEventListener("click", async () => {
 </body>
 
 </html>
+
 
 
 
