@@ -408,42 +408,27 @@ cancelButton.addEventListener("click", () => {
 
 
 loadProducts();
-const saveButton = document.getElementById("save-button");
-
-saveButton.addEventListener("click", () => {
+saveButton.addEventListener("click", async () => {
   // ตรวจสอบว่ามี item หรือไม่
   if (bookingItems.length === 0) {
     alert("Please add at least one item!");
-    return; // หยุดทำงานต่อถ้าไม่มี item
+    return; 
   }
 
-  // ดึงข้อมูลผู้ใช้และฟิลด์อื่น ๆ
   const user = JSON.parse(localStorage.getItem("user"));
   const service = serviceSelect.selectedOptions[0].text;
   const subService = subServiceSelect.selectedOptions[0].text;
   const date = bookingDate.value;
   const time = bookingTime.value;
 
-  // ตรวจสอบฟิลด์ว่าง
   if (!service || !subService || !date || !time) {
     alert("Please fill in all required fields!");
     return;
   }
 
-  // เตรียมข้อมูลแบบรวม items
-  const formData = {
-    type: "Inbound",
-    customer: user.customername,
-    service,
-    subService,
-    date,
-    time,
-    items: bookingItems
-  };
-
-  // แปลงเป็น array ตาม format booking.json แบบเดิม
+  // สร้าง bookingRecords จาก form
   const bookingRecords = bookingItems.map((item, index) => ({
-    bookingid: `B${Date.now()}-${index + 1}`, // สร้าง ID ชั่วคราว
+    bookingid: `B${Date.now()}-${index + 1}`,
     customername: user.customername,
     type: "inbound",
     service,
@@ -455,11 +440,31 @@ saveButton.addEventListener("click", () => {
     quantity: item.qty
   }));
 
-  console.log("Form data (all items together):", formData);
-  console.log("Booking records (ready for JSON file):", bookingRecords);
+  console.log("Form data (all items together):", bookingItems);
+  console.log("Booking records (ready for append):", bookingRecords);
 
-  // ส่วน fetch สามารถเพิ่มทีหลังได้
+  // --- ขั้นตอนใหม่: ดึง booking.json, filter, append, sessionStorage ---
+  try {
+    const res = await fetch("data/booking.json");
+    const allBookings = await res.json();
+
+    // filter ข้อมูลของ user ตาม customername (หรือ customerid ถ้ามี)
+    const userBookings = allBookings.filter(b => b.customername === user.customername);
+
+    // append bookingRecords ใหม่
+    const updatedBookings = [...userBookings, ...bookingRecords];
+
+    // เก็บลง sessionStorage
+    sessionStorage.setItem("bookingRecords", JSON.stringify(updatedBookings));
+
+    console.log("SessionStorage bookingRecords (appended):", updatedBookings);
+
+  } catch (err) {
+    console.error("Error loading booking.json:", err);
+  }
+
 });
+
 
   </script>
 
@@ -467,5 +472,6 @@ saveButton.addEventListener("click", () => {
 </body>
 
 </html>
+
 
 
