@@ -55,7 +55,7 @@ if (isset($_POST['register'])) {
     file_put_contents($jsonFile, $newJsonContent, LOCK_EX);
 
     // --- 6. ส่งผู้ใช้กลับไปที่หน้า index.html ---
-    header('Location: index.html');
+    header('https://ddcseabra.github.io/Warehousebooking/index.html');
     exit(); // จบการทำงานของสคริปต์ทันทีหลัง redirect
 }
 ?>
