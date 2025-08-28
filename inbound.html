@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+ 
   <style>
     :root {
       --primary-color: #4A55A2;
@@ -409,52 +410,79 @@
       }
     });
 
-    // Save
-    saveButton.addEventListener("click", () => {
-      if (bookingItems.length === 0) {
-        alert("Please add at least one item!");
-        return;
-      }
+    // =================== เพิ่มส่วนบันทึก BookingItems ===================
 
-      const user = JSON.parse(localStorage.getItem("user")); // ✅ ดึง user อีกครั้งก่อน save
-      const service = serviceSelect.selectedOptions[0].text;
-      const subService = subServiceSelect.selectedOptions[0].text;
-      const date = bookingDate.value;
-      const time = bookingTime.value;
+// ฟังก์ชันโหลด booking.json และหาตัวเลข bookingid ล่าสุด
+async function getLatestBookingId() {
+  const res = await fetch("data/booking.json");
+  const bookings = await res.json();
+  const latestId = bookings.reduce((max, b) => {
+    const num = parseInt(b.bookingid.slice(1)); // ลบตัวอักษร B
+    return num > max ? num : max;
+  }, 0);
+  return { bookings, latestId };
+}
 
-      if (!service || !subService || !date || !time) {
-        alert("Please fill in all required fields!");
-        return;
-      }
+// ฟังก์ชันดาวน์โหลด JSON (ใช้แทนการเขียนไฟล์บน GitHub Pages)
+function downloadJSON(data, filename) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+}
 
-      const data = {
-        type: "Inbound",
-        customer: user.customername,
-        service,
-        subService,
-        date,
-        time,
-        items: bookingItems
-      };
+// ต่อเข้ากับปุ่ม Save ของคุณ
+saveButton.addEventListener("click", async () => {
+  if (bookingItems.length === 0) {
+    alert("กรุณาเพิ่มสินค้าอย่างน้อยหนึ่งรายการ");
+    return;
+  }
 
-      fetch(webAppUrl, {
-        method: "POST",
-        body: JSON.stringify(data)
-      })
-        .then(res => res.json())
-        .then(res => {
-          if (res.status === "success") {
-            alert("Booking saved! ID: " + res.bookingId);
-            bookingItems = [];
-            renderTable();
-          } else {
-            alert("Error: " + res.message);
-          }
-        })
-        .catch(err => alert("Error: " + err));
-    });
+  const user = JSON.parse(localStorage.getItem("user"));
+  const service = serviceSelect.selectedOptions[0].text;
+  const subService = subServiceSelect.selectedOptions[0].text;
+  const date = bookingDate.value;
+  const time = bookingTime.value;
 
-    loadProducts();
+  if (!service || !subService || !date || !time) {
+    alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+    return;
+  }
+
+  const { bookings, latestId } = await getLatestBookingId();
+  let newIdCounter = latestId;
+
+  const newBookings = bookingItems.map(item => {
+    newIdCounter++;
+    return {
+      bookingid: "B" + newIdCounter.toString().padStart(3, "0"),
+      customername: user.customername,
+      type: "inbound",
+      service,
+      subservice: subService,
+      bookingdate: date,
+      bookingtime: time,
+      remark: item.remark,
+      productname: item.productName,
+      quantity: item.qty
+    };
+  });
+
+  const updatedBookings = [...bookings, ...newBookings];
+
+  downloadJSON(updatedBookings, "booking.json");
+  alert("บันทึกสำเร็จ! ดาวน์โหลดไฟล์ booking.json เรียบร้อยแล้ว");
+
+  // ล้างข้อมูลหลังบันทึก
+  bookingItems = [];
+  renderTable();
+  bookingDate.value = "";
+  bookingTime.value = "";
+  serviceSelect.value = "general-storage";
+  updateSubServices();
+});
+
   </script>
 
 
