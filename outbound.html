@@ -28,9 +28,12 @@
     .header-container {
       padding: 20px; display: flex; justify-content: space-between;
       background: var(--primary-color); height: 10vh; width: 100%;
+      nav {
+        width: 100%;
+      }
     }
     .header-img { height: 100%; }
-    .header-list { display: flex; list-style: none; gap: 20px; height: 100%; align-items: center; justify-content: center; }
+    .header-list { display: flex; list-style: none; gap: 20px; height: 100%; align-items: center; justify-content: center;width: 100%; }
     .header-list a { text-decoration: none; color: #fff; }
     .header-list li.active a { border-bottom: 2px solid #fff; font-weight: 600; }
     .main-container { max-width: 1000px; margin: auto; }
@@ -323,6 +326,7 @@ saveButton.addEventListener("click", async () => {
   </script>
 </body>
 </html>
+
 
 
 
