@@ -8,42 +8,43 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  
+
   <!-- External CSS -->
   <link rel="stylesheet" href="history.css">
 </head>
 
 <body>
   <header>
-  <div class="header-container">
-    <a href="menu.html"><img src="/img/home.png" class="header-img" alt=""></a>
-    <nav>
-      <ul class="header-list">
-        <li class="inbound"><a href="https://ddcseabra.github.io/Warehousebooking/inbound.html">Inbound</a></li>
-        <li class="outbound"><a href="https://ddcseabra.github.io/Warehousebooking/outbound.html">Outbound</a></li>
-        <li class="history active"><a href="#">History</a></li>
-        <li class="stock"><a href="https://ddcseabra.github.io/Warehousebooking/stock.html">Stock</a></li>
-      </ul>
-    </nav>
-    <a href="#"><img src="/img/user.png" class="header-img" alt=""></a>
-  </div>
-</header>
-
+    <div class="header-container">
+      <a href="menu.html"><img src="/img/home.png" class="header-img" alt=""></a>
+      <nav>
+        <ul class="header-list">
+          <li class="inbound"><a href="https://ddcseabra.github.io/Warehousebooking/inbound.html">Inbound</a></li>
+          <li class="outbound"><a href="https://ddcseabra.github.io/Warehousebooking/outbound.html">Outbound</a></li>
+          <li class="history active"><a href="#">History</a></li>
+          <li class="stock"><a href="https://ddcseabra.github.io/Warehousebooking/stock.html">Stock</a></li>
+        </ul>
+      </nav>
+      <a href="#"><img src="/img/user.png" class="header-img" alt=""></a>
+    </div>
+  </header>
 
   <main>
-    <div class="main-container">
-      <h1>Booking History</h1>
+    <section class="booking-section">
+      <div class="main-container">
+        <h1>Booking History</h1>
 
-      <div id="history-gallery" class="gallery"></div>
+        <div id="history-gallery" class="gallery"></div>
 
-      <div class="buttons-container">
-        <button class="back-btn" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Back to Booking</button>
-        <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        <div class="form-actions">
+          <button class="back-btn" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Back to Booking</button>
+          <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </div>
       </div>
-    </div>
+    </section>
   </main>
 
   <script>
