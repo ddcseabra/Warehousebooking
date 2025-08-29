@@ -8,10 +8,10 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  
+
   <!-- External CSS -->
   <link rel="stylesheet" href="history.css">
 </head>
@@ -19,7 +19,6 @@
 <body>
   <header>
     <div class="header-container">
-      <a href="menu.html"><img src="/img/home.png" class="header-img" alt="home"></a>
       <nav>
         <ul class="header-list">
           <li class="inbound"><a href="https://ddcseabra.github.io/Warehousebooking/inbound.html">Inbound</a></li>
@@ -28,64 +27,60 @@
           <li class="stock"><a href="https://ddcseabra.github.io/Warehousebooking/stock.html">Stock</a></li>
         </ul>
       </nav>
-      <a href="#"><img src="/img/user.png" class="header-img" alt="user"></a>
     </div>
   </header>
 
   <main>
     <div class="main-container">
-      <h1>Booking History</h1>
+      <h1><i class="fa-solid fa-clock-rotate-left"></i> Booking History</h1>
 
-      <div class="table-wrapper">
-        <table id="history-table">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Service</th>
-              <th>Sub-Service</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Product</th>
-              <th>Qty</th>
-              <th>Remark</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+      <div id="history-gallery" class="gallery"></div>
 
       <div class="buttons-container">
-        <button class="back-btn" onclick="goBack()">Back to Booking</button>
-        <button class="logout-btn" onclick="logout()">Logout</button>
+        <button class="back-btn" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Back to Booking</button>
+        <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
       </div>
     </div>
   </main>
 
   <script>
+    // ข้อมูล mock data หรือ sessionStorage ก็ได้
+    const bookingRecords = JSON.parse(sessionStorage.getItem("bookingRecords")) || [
+      { type: "Inbound", service: "Transportation", subservice: "Truck", bookingdate: "2025-08-28", bookingtime: "09:30", productname: "Steel Pipe", quantity: "120", remark: "Urgent delivery" },
+      { type: "Outbound", service: "Export", subservice: "Sea Freight", bookingdate: "2025-08-29", bookingtime: "14:00", productname: "Plastic Pallets", quantity: "500", remark: "To Japan" },
+      { type: "Inbound", service: "Warehouse", subservice: "Storage", bookingdate: "2025-08-30", bookingtime: "10:15", productname: "Textile Rolls", quantity: "300", remark: "Keep in cold room" }
+    ];
+
     function loadHistory() {
-      const bookingRecords = JSON.parse(sessionStorage.getItem("bookingRecords")) || [];
-      const tbody = document.querySelector("#history-table tbody");
-      tbody.innerHTML = "";
+      const gallery = document.getElementById("history-gallery");
+      gallery.innerHTML = "";
 
       if (bookingRecords.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No booking records found</td></tr>`;
+        gallery.innerHTML = `<p style="text-align:center;">No booking records found</p>`;
         return;
       }
 
       bookingRecords.forEach(b => {
-        const tr = document.createElement("tr");
+        const card = document.createElement("div");
+        card.classList.add("card");
+
         const typeClass = b.type.toLowerCase() === "inbound" ? "type-inbound" : "type-outbound";
-        tr.innerHTML = `
-          <td class="${typeClass}">${b.type}</td>
-          <td>${b.service}</td>
-          <td>${b.subservice}</td>
-          <td>${b.bookingdate}</td>
-          <td>${b.bookingtime}</td>
-          <td>${b.productname}</td>
-          <td>${b.quantity}</td>
-          <td>${b.remark}</td>
+
+        card.innerHTML = `
+          <div class="card-header ${typeClass}">
+            <i class="fa-solid fa-random"></i> ${b.type}
+          </div>
+          <div class="card-body">
+            <p><i class="fa-solid fa-truck"></i> <strong>Service:</strong> ${b.service}</p>
+            <p><i class="fa-solid fa-cubes"></i> <strong>Sub-Service:</strong> ${b.subservice}</p>
+            <p><i class="fa-solid fa-calendar-days"></i> <strong>Date:</strong> ${b.bookingdate}</p>
+            <p><i class="fa-solid fa-clock"></i> <strong>Time:</strong> ${b.bookingtime}</p>
+            <p><i class="fa-solid fa-box-open"></i> <strong>Product:</strong> ${b.productname}</p>
+            <p><i class="fa-solid fa-hashtag"></i> <strong>Qty:</strong> ${b.quantity}</p>
+            <p><i class="fa-solid fa-comment-dots"></i> <strong>Remark:</strong> ${b.remark}</p>
+          </div>
         `;
-        tbody.appendChild(tr);
+        gallery.appendChild(card);
       });
     }
 
