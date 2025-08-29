@@ -70,6 +70,8 @@
                 align-items: flex-start;
 
             }
+
+        
         /* --- Header --- */
         .login-header h1 {
             font-size: 2.5rem;
@@ -219,3 +221,47 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+   @media (max-width: 500px) {
+    body {
+        padding: 10px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-container {
+        padding: 25px;
+        width: 100%;
+        max-width: 360px; /* เพิ่มจาก 320px */
+        margin: 0 auto;
+    }
+
+    .upper-main .wh-logo {
+        height: 160px;  /* เพิ่มขนาดโลโก้ */
+        width: 160px;
+        top: 10px;
+    }
+
+    .login-header h1 {
+        font-size: 2rem;
+    }
+
+    .login-header p {
+        font-size: 0.9rem;
+    }
+
+    .input-group input {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .login-button {
+        padding: 14px; 
+        font-size: 1.05rem;
+    }
+
+    .signup-link {
+        font-size: 0.85rem;
+    }
+}
