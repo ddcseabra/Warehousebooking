@@ -18,18 +18,14 @@
 
 <body>
   <header>
-    <div class="header-container">
-      <a href="menu.html"><img src="/img/home.png" class="header-img" alt="home"></a>
-      <nav>
-        <ul class="header-list">
-          <li class="inbound"><a href="https://ddcseabra.github.io/Warehousebooking/inbound.html">Inbound</a></li>
-          <li class="outbound"><a href="https://ddcseabra.github.io/Warehousebooking/outbound.html">Outbound</a></li>
-          <li class="history active"><a href="#">History</a></li>
-          <li class="stock"><a href="https://ddcseabra.github.io/Warehousebooking/stock.html">Stock</a></li>
-        </ul>
-      </nav>
-      <a href="#"><img src="/img/user.png" class="header-img" alt="user"></a>
-    </div>
+    <nav class="header-container">
+      <ul class="header-list">
+        <li class="inbound"><a href="https://ddcseabra.github.io/Warehousebooking/inbound.html">Inbound</a></li>
+        <li class="outbound"><a href="https://ddcseabra.github.io/Warehousebooking/outbound.html">Outbound</a></li>
+        <li class="history active"><a href="#">History</a></li>
+        <li class="stock"><a href="https://ddcseabra.github.io/Warehousebooking/stock.html">Stock</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main>
@@ -39,8 +35,8 @@
       <div id="history-gallery" class="gallery"></div>
 
       <div class="buttons-container">
-        <button class="back-btn" onclick="goBack()">Back to Booking</button>
-        <button class="logout-btn" onclick="logout()">Logout</button>
+        <button class="back-btn" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Back to Booking</button>
+        <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
       </div>
     </div>
   </main>
