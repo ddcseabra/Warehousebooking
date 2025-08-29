@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,23 +14,24 @@
   <!-- External CSS -->
   <link rel="stylesheet" href="history.css">
 </head>
-
 <body>
+  <!-- Header -->
   <header>
     <div class="header-container">
-      <a href="menu.html"><img src="/img/home.png" class="header-img" alt=""></a>
+      <a href="menu.html"><img src="/img/home.png" class="header-img" alt="Home"></a>
       <nav>
         <ul class="header-list">
-          <li class="inbound"><a href="https://ddcseabra.github.io/Warehousebooking/inbound.html">Inbound</a></li>
-          <li class="outbound"><a href="https://ddcseabra.github.io/Warehousebooking/outbound.html">Outbound</a></li>
+          <li class="inbound"><a href="inbound.html">Inbound</a></li>
+          <li class="outbound"><a href="outbound.html">Outbound</a></li>
           <li class="history active"><a href="#">History</a></li>
-          <li class="stock"><a href="https://ddcseabra.github.io/Warehousebooking/stock.html">Stock</a></li>
+          <li class="stock"><a href="stock.html">Stock</a></li>
         </ul>
       </nav>
-      <a href="#"><img src="/img/user.png" class="header-img" alt=""></a>
+      <a href="#"><img src="/img/user.png" class="header-img" alt="User"></a>
     </div>
   </header>
 
+  <!-- Main Content -->
   <main>
     <section class="booking-section">
       <div class="main-container">
@@ -82,17 +82,16 @@
     }
 
     function goBack() {
-      window.location.href = "https://ddcseabra.github.io/Warehousebooking/inbound.html";
+      window.location.href = "inbound.html";
     }
 
     function logout() {
       localStorage.removeItem("user");
       sessionStorage.clear();
-      window.location.href = "https://ddcseabra.github.io/Warehousebooking/index.html";
+      window.location.href = "index.html";
     }
 
     loadHistory();
   </script>
 </body>
-
 </html>
