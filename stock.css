@@ -1,0 +1,166 @@
+:root {
+  --primary-color: #4A55A2;
+  --light-gray: #f0f2f5;
+  --dark-gray: #555;
+  --inbound-color: #63A89A;
+  --outbound-color: #A31621;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  background-image: url('https://images.unsplash.com/photo-1586528116311-06924151d18a?q=80&w=2070&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  color: var(--dark-gray);
+}
+
+/* Header */
+.header-container {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  background: var(--primary-color);
+  height: 10vh;
+  width: 100%;
+}
+
+.header-img {
+  height: 100%;
+}
+
+.header-list {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  height: 100%;
+  align-items: center;
+}
+
+.header-list a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.header-list li.active a {
+  border-bottom: 2px solid #fff;
+  font-weight: 600;
+}
+
+/* Main container */
+.main-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1 {
+  padding: 20px 20px 40px 20px;
+  color: #fff;
+}
+
+/* Gallery / Cards */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.85);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.card-header {
+  padding: 12px 20px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95em;
+  background-color: var(--inbound-color);
+}
+
+.card-body {
+  padding: 15px 20px;
+  font-size: 0.9em;
+}
+
+.card-body p {
+  margin: 8px 0;
+}
+
+.card-body i {
+  margin-right: 8px;
+  color: var(--primary-color);
+}
+
+/* Buttons */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 20px 0 0;
+}
+
+.form-actions button {
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.back-btn {
+  background: var(--inbound-color);
+  color: #fff;
+}
+
+.back-btn:hover {
+  background: #4e8c80;
+  transform: translateY(-1px);
+}
+
+.logout-btn {
+  background: var(--outbound-color);
+  color: #fff;
+}
+
+.logout-btn:hover {
+  background: #86121b;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 15px;
+  }
+
+  .card-body {
+    font-size: 0.85em;
+  }
+
+  .card-header {
+    font-size: 0.9em;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
