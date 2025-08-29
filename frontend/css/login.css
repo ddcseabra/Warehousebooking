@@ -231,14 +231,14 @@
     }
 
     .login-container {
-        padding: 25px;
+        padding: 35px; /* padding เท่ากันทุกด้าน */
         width: 100%;
-        max-width: 360px; /* เพิ่มจาก 320px */
+        max-width: 360px; 
         margin: 0 auto;
     }
 
     .upper-main .wh-logo {
-        height: 160px;  /* เพิ่มขนาดโลโก้ */
+        height: 160px;  
         width: 160px;
         top: 10px;
     }
