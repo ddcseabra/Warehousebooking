@@ -16,7 +16,7 @@ body {
   padding: 20px;
 }
 
-/* Header - nav centered */
+/* Header */
 .header-container {
   display: flex;
   justify-content: center;
@@ -31,7 +31,6 @@ body {
   justify-content: center;
   max-width: 600px;
   width: auto;
-  margin: 0 auto;
 }
 
 .header-list a {
@@ -44,7 +43,7 @@ body {
   border-bottom: 2px solid #fff;
 }
 
-/* Main */
+/* Main Container */
 .main-container {
   max-width: 800px;
   margin: auto;
@@ -54,7 +53,7 @@ h1 {
   text-align: center;
   color: #fff;
   margin-bottom: 20px;
-  font-weight: 400; /* ไม่ตัวหนา */
+  font-weight: 400;
 }
 
 /* Gallery - row ละ 1 card */
@@ -120,13 +119,23 @@ button {
   color: #fff;
 }
 
+.back-btn:hover {
+  background: #4e8c80;
+  transform: translateY(-1px);
+}
+
 .logout-btn {
   background: var(--outbound-color);
   color: #fff;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
+.logout-btn:hover {
+  background: #86121b;
+  transform: translateY(-1px);
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
   .main-container {
     padding: 10px;
   }
@@ -137,5 +146,10 @@ button {
 
   .buttons-container {
     justify-content: center;
+  }
+
+  .header-list {
+    flex-wrap: wrap;
+    gap: 15px;
   }
 }
