@@ -16,10 +16,10 @@ body {
   padding: 20px;
 }
 
-
+/* Header - nav centered */
 .header-container {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   background: var(--primary-color);
   padding: 10px 0;
 }
@@ -27,17 +27,12 @@ body {
 .header-list {
   display: flex;
   list-style: none;
-  gap: 30px; 
+  gap: 30px;
   justify-content: center;
   max-width: 600px;
-  width: 100%;
+  width: auto;
+  margin: 0 auto;
 }
-
-
-.header-img {
-  height: 40px;
-}
-
 
 .header-list a {
   text-decoration: none;
