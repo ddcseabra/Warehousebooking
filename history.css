@@ -57,31 +57,35 @@ body {
 .main-container {
   max-width: 1000px;
   margin: auto;
-  padding: 20px; /* padding ให้เหมือน Inbound */
+  padding: 20px;
 }
 
 /* Titles */
 h1 {
   padding: 20px 20px 40px 20px;
+  color: #fff;
 }
 
-/* History Cards */
+/* Gallery / Cards */
 .gallery {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
+  margin-top: 20px;
 }
 
 .card {
   background: rgba(255,255,255,0.85);
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 .card-header {
-  padding: 10px;
+  padding: 12px 20px;
   color: #fff;
   font-weight: 600;
+  font-size: 0.95em;
 }
 
 .type-inbound {
@@ -93,8 +97,17 @@ h1 {
 }
 
 .card-body {
-  padding: 10px;
-  font-size: 0.85em;
+  padding: 15px 20px;
+  font-size: 0.9em;
+}
+
+.card-body p {
+  margin: 8px 0;
+}
+
+.card-body i {
+  margin-right: 8px;
+  color: var(--primary-color);
 }
 
 /* Buttons */
@@ -134,4 +147,28 @@ h1 {
 .logout-btn:hover {
   background: #86121b;
   transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-container {
+    padding: 15px;
+  }
+
+  .card-body {
+    font-size: 0.85em;
+  }
+
+  .card-header {
+    font-size: 0.9em;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
 }
