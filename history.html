@@ -48,50 +48,78 @@
   </main>
 
   <script>
-    function loadHistory() {
-      const bookingRecords = JSON.parse(sessionStorage.getItem("bookingRecords")) || [];
-      const gallery = document.getElementById("history-gallery");
-      gallery.innerHTML = "";
-
-      if (bookingRecords.length === 0) {
-        gallery.innerHTML = `<p style="text-align:center; color: #fff;">No booking records found</p>`;
-        return;
-      }
-
-      bookingRecords.forEach(b => {
-        const card = document.createElement("div");
-        const typeClass = b.type.toLowerCase() === "inbound" ? "type-inbound" : "type-outbound";
-
-        card.classList.add("card");
-        card.innerHTML = `
-          <div class="card-header ${typeClass}">
-            <i class="fa-solid fa-random"></i> ${b.type}
-          </div>
-          <div class="card-body">
-            <p><i class="fa-solid fa-truck"></i> Service: ${b.service}</p>
-            <p><i class="fa-solid fa-cubes"></i> Sub-Service: ${b.subservice}</p>
-            <p><i class="fa-solid fa-calendar-days"></i> Date: ${b.bookingdate}</p>
-            <p><i class="fa-solid fa-clock"></i> Time: ${b.bookingtime}</p>
-            <p><i class="fa-solid fa-box-open"></i> Product: ${b.productname}</p>
-            <p><i class="fa-solid fa-hashtag"></i> Qty: ${b.quantity}</p>
-            <p><i class="fa-solid fa-comment-dots"></i> Remark: ${b.remark}</p>
-          </div>
-        `;
-        gallery.appendChild(card);
-      });
-    }
-
-    function goBack() {
-      window.location.href = "inbound.html";
-    }
-
-    function logout() {
-      localStorage.removeItem("user");
-      sessionStorage.clear();
+  async function loadHistory() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      alert("Please login first!");
       window.location.href = "index.html";
+      return;
     }
 
-    loadHistory();
-  </script>
+    // ถ้ามีใน sessionStorage ก็ใช้เลย
+    let bookingRecords = JSON.parse(sessionStorage.getItem("bookingRecords"));
+    
+    if (!bookingRecords) {
+      // ถ้าไม่มี ให้ fetch จาก booking.json แล้ว filter ตาม user
+      try {
+        const res = await fetch("data/booking.json");
+        const allBookings = await res.json();
+        bookingRecords = allBookings.filter(b => b.customername === user.customername);
+      } catch (err) {
+        console.error("Error loading booking history:", err);
+        bookingRecords = [];
+      }
+    }
+
+    renderHistoryTable(bookingRecords);
+  }
+
+  // ฟังก์ชันสำหรับ render card
+  function renderHistoryTable(bookingRecords) {
+    const gallery = document.getElementById("history-gallery");
+    gallery.innerHTML = "";
+
+    if (!bookingRecords || bookingRecords.length === 0) {
+      gallery.innerHTML = `<p style="text-align:center; color: #fff;">No booking records found</p>`;
+      return;
+    }
+
+    bookingRecords.forEach(b => {
+      const card = document.createElement("div");
+      const typeClass = b.type.toLowerCase() === "inbound" ? "type-inbound" : "type-outbound";
+
+      card.classList.add("card");
+      card.innerHTML = `
+        <div class="card-header ${typeClass}">
+          <i class="fa-solid fa-random"></i> ${b.type}
+        </div>
+        <div class="card-body">
+          <p><i class="fa-solid fa-truck"></i> Service: ${b.service}</p>
+          <p><i class="fa-solid fa-cubes"></i> Sub-Service: ${b.subservice}</p>
+          <p><i class="fa-solid fa-calendar-days"></i> Date: ${b.bookingdate}</p>
+          <p><i class="fa-solid fa-clock"></i> Time: ${b.bookingtime}</p>
+          <p><i class="fa-solid fa-box-open"></i> Product: ${b.productname}</p>
+          <p><i class="fa-solid fa-hashtag"></i> Qty: ${b.quantity}</p>
+          <p><i class="fa-solid fa-comment-dots"></i> Remark: ${b.remark}</p>
+        </div>
+      `;
+      gallery.appendChild(card);
+    });
+  }
+
+  function goBack() {
+    window.location.href = "inbound.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("user");
+    sessionStorage.clear();
+    window.location.href = "index.html";
+  }
+
+  // โหลดประวัติ booking ตอนหน้าเสร็จ
+  document.addEventListener("DOMContentLoaded", loadHistory);
+</script>
+
 </body>
 </html>
